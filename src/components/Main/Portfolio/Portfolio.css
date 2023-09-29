@@ -1,0 +1,118 @@
+/* portfolio */
+
+.portfolio {
+  display: flex;
+  flex-direction: column;
+  padding: 70px 14px;
+}
+
+@media (min-width: 768px) {
+  .portfolio {
+    padding: 91px 50px 89px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .portfolio {
+    padding: 101px 70px 111px;
+  }
+}
+
+.portfolio__title {
+  margin: 0;
+  color: #A0A0A0;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: var(--weight-normal);
+  line-height: 20px;
+}
+
+@media (min-width: 768px) {
+  .portfolio__title {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .portfolio__title {}
+}
+
+.portfolio__links {
+  margin: 0;
+  padding: 40px 0 0 0;
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  .portfolio__links {
+    padding: 50px 0 0 0;
+  }
+}
+
+.portfolio__link-wrap {
+  border-bottom: 1px solid #E6E6E6;
+  padding-bottom: 19px;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between
+}
+
+.portfolio__link-wrap:first-child {
+  padding-top: 0;
+}
+
+.portfolio__link-wrap:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.portfolio__link {
+  text-decoration: none;
+  color: var(--black);
+  font-size: 18px;
+  font-style: normal;
+  font-weight: var(--weight-normal);
+  line-height: 28px;
+  letter-spacing: -0.72px;
+  transition: opacity 0.3s;
+}
+
+.portfolio__link:hover {
+  opacity: 0.7;
+}
+
+@media (min-width: 768px) {
+  .portfolio__link {
+    font-size: 28px;
+    line-height: 50px;
+    letter-spacing: -1.12px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .portfolio__link {
+    font-size: 30px;
+  }
+}
+
+.portfolio__link-button {
+  background-image: url('../../../images/arrow_font-main.svg');
+  background-repeat: no-repeat;
+  border: none;
+  background-color: var(--background-color-main);
+  margin-top: 7px;
+  margin-right: 3px;
+}
+
+@media (min-width: 768px) {
+  .portfolio__link-button {
+    background-size: 17px;
+    width: 30px;
+    margin-top: 17px;
+    margin-right: -7px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .portfolio__link-button {}
+}

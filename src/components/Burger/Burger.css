@@ -1,0 +1,137 @@
+
+/* burger */
+
+.burger {
+  height: 100%;
+  position: fixed;
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.4s ease;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  width: 100%;
+  right: 0;
+  top: 0;
+}
+
+@media(min-width: 1024px) {
+  .burger {
+    display: none;
+  }
+}
+
+.burger__wrap {
+  background-color: var(--background-color-main);
+  box-sizing: border-box;
+  height: 100%;
+  margin: 0;
+  max-width: 520px;
+  padding: 144px 10px 46px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  transform: translateX(100%);
+  transition: transform .3s;
+}
+
+@media(min-width: 768px) {
+  .burger__wrap {
+    padding: 160px 90px 90px;
+  }
+}
+
+.burger_active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.burger_active .burger__wrap {
+  transform: translateX(0);
+}
+
+.burger__close {
+  background-image: url(../../images/close.svg);
+  background-repeat: no-repeat;
+  width: 22px;
+  height: 22px;
+  background-position: center;
+  border: none;
+  position: absolute;
+  background-color: var(--background-color-main);
+  top: 18px;
+  right: 18px;
+}
+
+@media(min-width: 768px) {
+  .burger__close {
+    top: 27px;
+    right: 27px;
+  }
+}
+
+.burger__list {
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 0;
+}
+
+@media(min-width: 768px) {
+  .burger__list {
+    gap: 28px
+  }
+}
+
+.burger__link {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  padding-bottom: 7px;
+  transition: opacity 0.3s;
+  text-decoration: none;
+  color: var(--black);
+}
+
+.burger__link:hover {
+  opacity: 0.7;
+}
+
+.burger__link_active {
+  border-bottom: 2px solid var(--black);
+}
+
+@media(min-width: 768px) {
+  .burger__link {
+    padding-bottom: 3px;
+  }
+}
+
+.burger__btn-account {
+  width: 100px;
+  height: 32px;
+  border-radius: 50px;
+  border: 2px solid rgba(170, 170, 170, 0.2);
+  ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  background-color: var(--background-color-main);
+  margin: 444px auto 0;
+}
+
+@media(min-width: 768px) {
+  .burger__btn-account {
+    margin: 621px auto 0;
+  }
+}
+
+.burger__txt-account {
+  color: var(--black);
+  font-size: 14px;
+}

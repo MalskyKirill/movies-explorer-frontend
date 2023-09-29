@@ -1,0 +1,19 @@
+@import url('../../vendor/normalize.css');
+@import url('../../vendor/fonts/fonts.css');
+@import url('../../vendor/variables/root.css');
+
+.body {
+  margin: 0 auto;
+  color: var(--black);
+  min-height: 100vh;
+}
+
+.page {
+  min-width: 320px;
+  max-width: 1280px;
+  font-family: var(--family);
+  font-weight: var(--weight-normal);
+  margin: 0 auto;
+  width: 100%;
+  background-color: var(--background-color-main);
+}

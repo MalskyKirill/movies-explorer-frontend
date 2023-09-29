@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" media="screen" href="./css/normalize.css">
+  <link rel="stylesheet" type="text/css" media="screen" href="./css/main.css" />
+  <title>Landing</title>
+</head>
+
+<body class="body">
+  <div class="page">
+    <header class="header header_light">
+      <div class="header__logo"></div>
+      <!-- <ul class="header__links">
+        <li class="header__link-wrap"><a href="#" class="header__link-registration">Регистрация</a></li>
+        <li class="header__link-wrap"><button href="#" class="header__link-login">Войти</button></li>
+      </ul> -->
+      <div class="header__links-wrap-content">
+        <ul class="header__links-content">
+          <li class="header__link-content-wrap"><a href="#" class="header__link-film">Фильмы</a></li>
+          <li class="header__link-content-wrap"><a href="#" class="header__link-save-film">Сохранённые фильмы</a></li>
+        </ul>
+        <button class="header__btn-account">
+          <img class="header__img-account" src="./images/icon__COLOR_icon-main.svg" />
+          <p class="header__txt-account">Аккаунт</p>
+        </button>
+      </div>
+      <!-- <div class="header__mobile-btn"></div> -->
+    </header>
+    <main class="content content_main">
+      <section class="profile">
+        <h2 class="profile__name">Привет Кирилл!</h2>
+        <form class="profile__form" id="profileField" name="form" novalidate>
+          <label class="profile__field-wrap">
+            <span class="profile__label">Имя</span>
+            <input id="name" type="text" class="profile__field profile__field_next_name" placeholder="Имя" name="name"
+              minlength="2" maxlength="40" required>
+            <span class="profile__field-error profile__field-error-name profile__field-error_visible ">ошибка имени</span>
+          </label>
+          <label class="profile__field-wrap">
+            <span class="profile__label">E-mail</span>
+            <input id="e-mail" type="email" class="profile__field profile__field_next_email" placeholder="email"
+              name="email" minlength="2" maxlength="200" required>
+            <span class="profile__field-error profile__field-error-email">ошибка email</span>
+          </label>
+          <button class="profile__save" type="submit" form="profileField">Редактировать</button>
+          <button class="profile__exit" type="submit" form="profileField">Выйти из аккаунта</button>
+        </form>
+      </section>
+    </main>
+  </div>
+
+</body>
+
+</html>

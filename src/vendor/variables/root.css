@@ -1,0 +1,19 @@
+:root {
+  /* color */
+  --background-color-gray: #DDDEE3;
+  --background-color-light-gray: #F5F5F5;
+  --background-color-blue: #3456F3;
+  --background-color-main: #FAFAFA;
+  --background-color-footer: #F8F8F8;
+
+  --white: #FFFFFF;
+  --black: #000000;
+  --gray: #DDDEE3;
+  --placeholder-color: #C4C4C4;
+
+  /* typography */
+  --family: 'Inter', arial, sans-serif;
+  --weight-black: 900;
+  --weight-medium: 500;
+  --weight-normal: 400;
+}

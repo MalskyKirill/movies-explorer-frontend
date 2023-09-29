@@ -1,0 +1,29 @@
+/* movies */
+
+.movies {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  justify-items: center;
+  gap: 20px;
+}
+
+@media(min-width: 768px) {
+  .movies {
+    row-gap: 36px;
+    column-gap: 30px;
+    width: 92%;
+    margin: 0 auto;
+  }
+}
+
+@media(min-width: 1280px) {
+  .movies {
+    row-gap: 32px;
+    column-gap: 20px;
+    width: 89%;
+    grid-template-columns: repeat(auto-fill, minmax(269.8px, 1fr));
+  }
+}
+
