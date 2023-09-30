@@ -140,6 +140,7 @@
   color: #EE3465;
   padding-top: 16px;
   padding-bottom: 40px;
+  text-decoration: none;
 }
 
 @media(min-width: 768px) {

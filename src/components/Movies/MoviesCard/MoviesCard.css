@@ -1,3 +1,7 @@
+.movie {
+
+}
+
 .movie__foto {
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
@@ -13,7 +17,7 @@
   }
 }
 
-@media(min-width: 1280px) {
+@media(min-width: 1000px) {
   .movie__foto {
     width: 270px;
     height: 151px;
@@ -50,7 +54,7 @@
   }
 }
 
-@media(min-width: 1280px) {
+@media(min-width: 1000px) {
   .movie__box {
     width: 270px;
   }
@@ -63,6 +67,10 @@
   font-weight: var(--weight-medium);
   line-height: normal;
   padding-left: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 230px;
 }
 
 .movie__button {
