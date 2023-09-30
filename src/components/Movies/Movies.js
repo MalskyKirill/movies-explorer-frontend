@@ -3,11 +3,14 @@ import MoviesCardList from './MoviesCardList/MoviesCardList';
 import SearchForm from './SearchForm/SearchForm';
 import Preloader from './Preloader/Preloader';
 import ButtonMoreMovies from './ButtonMoreMovies/ButtonMoreMovies';
+import { useLocation } from 'react-router-dom';
 
 
 
 function Movies() {
   const preloader = false
+
+  const location = useLocation()
 
   return (
     <main className='content content_main'>
@@ -16,7 +19,7 @@ function Movies() {
       {preloader && <Preloader />}
         {!preloader && <MoviesCardList />}
       </section>
-      <ButtonMoreMovies />
+      {location.pathname === '/movies' ? <ButtonMoreMovies /> : <></>}
     </main>
   );
 }
