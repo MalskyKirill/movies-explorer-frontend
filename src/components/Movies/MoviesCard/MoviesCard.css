@@ -79,6 +79,11 @@
   cursor: pointer;
   background-color: var(--white);
   background-repeat: no-repeat;
+  transition: opacity 0.3s;
+}
+
+.movie__button:hover {
+  opacity: 0.7;
 }
 
 .movie__button_saved {
