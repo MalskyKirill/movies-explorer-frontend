@@ -5,7 +5,7 @@ function SearchForm() {
   return (
     <section className='search' aria-label='Поиск'>
       <div className='search__wrap'>
-        <form className='search__form'>
+        <form className='search__form' name='search-form'>
           <input
             type='text'
             className='search__text'
