@@ -7,7 +7,7 @@ function AboutMe() {
     <section className='about-me' aria-label='Про мне' id='aboutMe'>
       <h2 className='about-me__title'>Студент</h2>
       <div className='about-me__block'>
-        <img src={Avatar} alt='' className='about-me__img' />
+        <img src={Avatar} alt='аватар' className='about-me__img' />
         <div className='about-me__description'>
           <h3 className='about-me__name'>Кирилл</h3>
           <p className='about-me__prof'>Web-мартышка, 36лет</p>
