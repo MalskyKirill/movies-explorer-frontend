@@ -28,7 +28,6 @@ function Profile() {
   }
 
   useEffect(() => {
-    console.log(name.length)
     if(name.length >= 2 && email.length >= 2) {
       setIsValid(true)
     }
