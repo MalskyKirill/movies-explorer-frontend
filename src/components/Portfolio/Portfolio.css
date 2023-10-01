@@ -75,6 +75,16 @@
   line-height: 28px;
   letter-spacing: -0.72px;
   transition: opacity 0.3s;
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.portfolio__link::after {
+  content: '↗';
+  position: absolute;
+  top: 3px;
+  left: 94%;
 }
 
 .portfolio__link:hover {
@@ -87,11 +97,19 @@
     line-height: 50px;
     letter-spacing: -1.12px;
   }
+
+  .portfolio__link::after {
+    left: 96%;
+  }
 }
 
 @media (min-width: 1280px) {
   .portfolio__link {
     font-size: 30px;
+  }
+
+  .portfolio__link::after {
+    left: 97%;
   }
 }
 
