@@ -59,14 +59,17 @@
   padding-bottom: 3px;
   padding-top: 17px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   border-bottom: 1px solid #E8E8E8;
-  justify-content: space-between;
-  position: relative;
 }
 
 .profile__field-wrap:last-of-type {
   border-bottom: none;
+}
+
+.profile__field-content {
+  display: flex;
+  justify-content: space-between;
 }
 
 .profile__label {
@@ -96,15 +99,13 @@
   font-weight: var(--weight-normal);
   line-height: normal;
   color: #EE3465;
-  position: absolute;
-  opacity: 0;
-  top: 33px;
-  left: 0;
   transition: 0.3s;
+  max-width: 200px;
+  display: none;
 }
 
 .profile__field-error_visible {
-  opacity: 1;
+  display: block;
 }
 
 .profile__save {

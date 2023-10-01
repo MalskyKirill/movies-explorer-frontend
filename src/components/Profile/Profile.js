@@ -9,18 +9,20 @@ function Profile() {
           <h1 className='profile__name'>Привет Кирилл!</h1>
           <form className='profile__form' id='profileField' name='form'>
             <label className='profile__field-wrap'>
-              <span className='profile__label'>Имя</span>
-              <input
-                id='name'
-                type='text'
-                className='profile__field profile__field_next_name'
-                placeholder='Имя'
-                name='name'
-                minLength='2'
-                maxLength='40'
-                required
-              />
-              <span className='profile__field-error profile__field-error-name profile__field-error_visible '>
+              <div className='profile__field-content'>
+                <span className='profile__label'>Имя</span>
+                <input
+                  id='name'
+                  type='text'
+                  className='profile__field profile__field_next_name'
+                  placeholder='Имя'
+                  name='name'
+                  minLength='2'
+                  maxLength='40'
+                  required
+                />
+              </div>
+              <span className='profile__field-error profile__field-error-name'>
                 ошибка имени
               </span>
             </label>
@@ -44,9 +46,9 @@ function Profile() {
               Редактировать
             </button>
           </form>
-            <Link to={'/'} className='profile__exit' type='button'>
-              Выйти из аккаунта
-            </Link>
+          <Link to={'/'} className='profile__exit' type='button'>
+            Выйти из аккаунта
+          </Link>
         </section>
       </main>
     </>
