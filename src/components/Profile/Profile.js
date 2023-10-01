@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import './Profile.css';
 
 function Profile() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
+  const [isRedact, setIsRedact] = useState(true);
+
   return (
     <>
       <main className='content content_main'>
@@ -20,35 +26,61 @@ function Profile() {
                   minLength='2'
                   maxLength='40'
                   required
+                  value='Kirill'
                 />
               </div>
-              <span className='profile__field-error profile__field-error-name'>
+              <span className='profile__field-error profile__field-error-name profile__field-error_visible'>
                 ошибка имени
               </span>
             </label>
             <label className='profile__field-wrap'>
-              <span className='profile__label'>E-mail</span>
-              <input
-                id='e-mail'
-                type='email'
-                className='profile__field profile__field_next_email'
-                placeholder='email'
-                name='email'
-                minLength='2'
-                maxLength='200'
-                required
-              />
-              <span className='profile__field-error profile__field-error-email'>
+              <div className='profile__field-content'>
+                <span className='profile__label'>E-mail</span>
+                <input
+                  id='e-mail'
+                  type='email'
+                  className='profile__field profile__field_next_email'
+                  placeholder='email'
+                  name='email'
+                  minLength='2'
+                  maxLength='200'
+                  required
+                />
+              </div>
+              <span className='profile__field-error profile__field-error-email profile__field-error_visible'>
                 ошибка email
               </span>
             </label>
-            <button className='profile__save' type='submit' form='profileField'>
-              Редактировать
-            </button>
+            {!isRedact ? (
+              <button
+                className='profile__redact'
+                type='submit'
+                form='profile-field'
+              >
+                Редактировать
+              </button>
+            ) : (
+              <div className='profile__save-wrap'>
+                <span className='profile__field-error profile__field-error_save profile__field-error_visible'>
+                  При обновлении профиля произошла ошибка.
+                </span>
+                <button
+                  class='profile__save'
+                  type='submit'
+                  form='registration-field'
+                >
+                  Сохранить
+                </button>
+              </div>
+            )}
           </form>
-          <Link to={'/'} className='profile__exit' type='button'>
-            Выйти из аккаунта
-          </Link>
+          {!isRedact ? (
+            <Link to={'/'} className='profile__exit' type='button'>
+              Выйти из аккаунта
+            </Link>
+          ) : (
+            <></>
+          )}
         </section>
       </main>
     </>

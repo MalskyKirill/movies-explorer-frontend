@@ -46,7 +46,7 @@ function Burger({ burgerOpen, setBurgerOpen }) {
             </Link>
           </li>
         </ul>
-        <Link className='burger__btn-account'>
+        <Link to={'/profile'}className='burger__btn-account'>
           <p className='burger__txt-account'>Аккаунт</p>
         </Link>
       </nav>
