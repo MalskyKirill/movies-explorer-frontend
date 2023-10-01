@@ -121,6 +121,12 @@
   font-style: normal;
   font-weight: var(--weight-normal);
   line-height: normal;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+
+.profile__redact:hover {
+  opacity: 0.7;
 }
 
 @media(min-width: 768px) {
@@ -156,6 +162,13 @@
   font-weight: var(--weight-medium);
   line-height: normal;
   margin: 0 auto;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+
+
+.profile__save:hover {
+  opacity: 0.7;
 }
 
 .profile__save:disabled {
@@ -184,6 +197,12 @@
   padding-top: 16px;
   padding-bottom: 40px;
   text-decoration: none;
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+
+.profile__exit:hover {
+  opacity: 0.7;
 }
 
 @media(min-width: 768px) {

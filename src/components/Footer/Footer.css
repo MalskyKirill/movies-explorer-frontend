@@ -90,7 +90,15 @@
   }
 }
 
-.footer__link-wrap {}
+.footer__link-wrap {
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+
+.footer__link-wrap:hover {
+  opacity: 0.7;
+}
+
 
 .footer__link {
   font-size: 12px;

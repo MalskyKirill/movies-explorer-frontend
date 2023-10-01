@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 function Header() {
   const [burgerOpen, setBurgerOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const location = useLocation();
 
