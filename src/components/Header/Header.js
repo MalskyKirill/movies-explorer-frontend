@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 function Header() {
   const [burgerOpen, setBurgerOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const location = useLocation();
 
@@ -19,7 +19,7 @@ function Header() {
 
   const headerLoggedElement = loggedIn ? (
     <>
-      <div className='header__links-wrap-content'>
+      <nav className='header__links-wrap-content'>
         <ul className='header__links-content'>
           <li className='header__link-content-wrap'>
             <Link to={'/movies'} className='header__link-film'>
@@ -35,25 +35,27 @@ function Header() {
         <Link to={'/profile'} className='header__btn-account'>
           <p className='header__txt-account'>Аккаунт</p>
         </Link>
-      </div>
+      </nav>
       <div
         onClick={() => setBurgerOpen(!burgerOpen)}
         className='header__mobile-btn'
       ></div>
     </>
   ) : (
-    <ul className='header__links'>
-      <li className='header__link-wrap'>
-        <Link to='/signup' className='header__link-registration'>
-          Регистрация
-        </Link>
-      </li>
-      <li className='header__link-wrap'>
-        <Link to='/signin' className='header__link-login'>
-          Войти
-        </Link>
-      </li>
-    </ul>
+    <nav>
+      <ul className='header__links'>
+        <li className='header__link-wrap'>
+          <Link to='/signup' className='header__link-registration'>
+            Регистрация
+          </Link>
+        </li>
+        <li className='header__link-wrap'>
+          <Link to='/signin' className='header__link-login'>
+            Войти
+          </Link>
+        </li>
+      </ul>
+    </nav>
   );
 
   return (

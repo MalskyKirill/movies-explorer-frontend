@@ -7,7 +7,7 @@ function Burger({ burgerOpen, setBurgerOpen }) {
 
   return (
     <div className={`burger ${burgerOpen ? 'burger_active' : ''}`}>
-      <div className='burger__wrap'>
+      <nav className='burger__wrap'>
         <button
           onClick={() => setBurgerOpen(!burgerOpen)}
           className='burger__close'
@@ -49,7 +49,7 @@ function Burger({ burgerOpen, setBurgerOpen }) {
         <Link className='burger__btn-account'>
           <p className='burger__txt-account'>Аккаунт</p>
         </Link>
-      </div>
+      </nav>
     </div>
   );
 }
