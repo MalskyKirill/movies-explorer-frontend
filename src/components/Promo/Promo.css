@@ -6,7 +6,7 @@
   justify-content: center;
   background-color: var(--background-color-gray);
   color: var(--black);
-  background-image: url('../../../images/pic__COLOR_landing-logo.svg');
+  background-image: url('../../images/pic__COLOR_landing-logo.svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: 248px auto;

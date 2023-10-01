@@ -1,8 +1,8 @@
 import './Movies.css'
-import MoviesCardList from './MoviesCardList/MoviesCardList';
-import SearchForm from './SearchForm/SearchForm';
-import Preloader from './Preloader/Preloader';
-import ButtonMoreMovies from './ButtonMoreMovies/ButtonMoreMovies';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import SearchForm from '../SearchForm/SearchForm';
+import Preloader from '../Preloader/Preloader';
+import ButtonMoreMovies from '../ButtonMoreMovies/ButtonMoreMovies';
 import { useLocation } from 'react-router-dom';
 
 

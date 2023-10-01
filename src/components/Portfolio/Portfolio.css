@@ -96,7 +96,7 @@
 }
 
 .portfolio__link-button {
-  background-image: url('../../../images/arrow_font-main.svg');
+  background-image: url('../../images/arrow_font-main.svg');
   background-repeat: no-repeat;
   border: none;
   background-color: var(--background-color-main);

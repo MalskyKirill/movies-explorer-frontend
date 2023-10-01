@@ -1,5 +1,6 @@
 import './AboutMe.css'
-import Avatar from '../../../images/IMG_6884.jpg';
+import Avatar from '../../images/IMG_6884.jpg';
+import { Link } from 'react-router-dom';
 
 function AboutMe() {
   return (
@@ -16,9 +17,9 @@ function AboutMe() {
             кодить. Не остановился. Прошел 3 курса в HTML-academy и решил
             отучится в Я.Практикум по специальности web-разработчик.
           </p>
-          <a href='#' className='about-me__link'>
+          <Link to={'https://github.com/MalskyKirill'} className='about-me__link'>
             Github
-          </a>
+          </Link>
         </div>
       </div>
     </section>

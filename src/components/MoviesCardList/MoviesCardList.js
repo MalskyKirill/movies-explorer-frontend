@@ -2,7 +2,7 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import { useState } from 'react';
 
-import { movies } from '../../../vendor/fish-data';
+import { movies } from '../../vendor/fish-data';
 
 function MoviesCardList() {
   const [cards, setCards] = useState(movies);

@@ -99,7 +99,7 @@
     padding-left: 43px;
     padding-top: 5px;
     font-size: 18px;
-    background-image: url('../../../images/icon-search.svg');
+    background-image: url('../../images/icon-search.svg');
     background-repeat: no-repeat;
   }
 }
@@ -111,9 +111,8 @@
   position: absolute;
   top: 19px;
   right: 19px;
-  background-image: url('../../../images/find.svg');
+  background-image: url('../../images/find.svg');
   cursor: pointer;
   border: none;
   background-color: var(--white);
-
 }
