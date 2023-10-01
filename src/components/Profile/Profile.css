@@ -114,7 +114,7 @@
 }
 
 .profile__redact {
-  padding-top: 364px;
+  padding-top: 360px;
   background-color: var(--background-color-main);
   border: none;
   font-size: 12px;
@@ -156,6 +156,12 @@
   font-weight: var(--weight-medium);
   line-height: normal;
   margin: 0 auto;
+}
+
+.profile__save:disabled {
+  background-color: #F8F8F8;
+  color: #C2C2C2;
+  pointer-events: none;
 }
 
 @media(min-width: 768px) {

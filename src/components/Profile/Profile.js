@@ -1,19 +1,45 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './Profile.css';
 
 function Profile() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
-  const [isRedact, setIsRedact] = useState(true);
+  const [isValid, setIsValid] = useState(false)
+
+  const [isRedact, setIsRedact] = useState(false);
+
+  const handleRedact = () => {
+    setIsRedact(true)
+  }
+
+  const handleNameChange = (evt) => {
+    setName(evt.target.value)
+  }
+
+  const handleEmailChange = (evt) => {
+    setEmail(evt.target.value)
+  }
+
+  const handleSubmit = (evt) => {
+    evt.preventDefault()
+    setIsRedact(false)
+  }
+
+  useEffect(() => {
+    console.log(name.length)
+    if(name.length >= 2 && email.length >= 2) {
+      setIsValid(true)
+    }
+  }, [name, email])
 
   return (
     <>
       <main className='content content_main'>
         <section className='profile'>
           <h1 className='profile__name'>Привет Кирилл!</h1>
-          <form className='profile__form' id='profileField' name='form'>
+          <form className='profile__form' id='profile-field' name='form' onSubmit={handleSubmit}>
             <label className='profile__field-wrap'>
               <div className='profile__field-content'>
                 <span className='profile__label'>Имя</span>
@@ -26,7 +52,9 @@ function Profile() {
                   minLength='2'
                   maxLength='40'
                   required
-                  value='Kirill'
+                  value={name || ''}
+                  onChange={handleNameChange}
+                  disabled={!isRedact}
                 />
               </div>
               <span className='profile__field-error profile__field-error-name profile__field-error_visible'>
@@ -45,6 +73,9 @@ function Profile() {
                   minLength='2'
                   maxLength='200'
                   required
+                  value={email || ''}
+                  onChange={handleEmailChange}
+                  disabled={!isRedact}
                 />
               </div>
               <span className='profile__field-error profile__field-error-email profile__field-error_visible'>
@@ -54,8 +85,9 @@ function Profile() {
             {!isRedact ? (
               <button
                 className='profile__redact'
-                type='submit'
+                type='button'
                 form='profile-field'
+                onClick={handleRedact}
               >
                 Редактировать
               </button>
@@ -65,9 +97,11 @@ function Profile() {
                   При обновлении профиля произошла ошибка.
                 </span>
                 <button
-                  class='profile__save'
+                  className='profile__save'
                   type='submit'
-                  form='registration-field'
+                  form='profile-field'
+                  disabled={!isValid}
+
                 >
                   Сохранить
                 </button>
