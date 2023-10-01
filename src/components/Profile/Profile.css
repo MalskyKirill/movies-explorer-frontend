@@ -145,8 +145,15 @@
 .profile__save-wrap {
   display: flex;
   flex-direction: column;
-  padding-top: 315px;
+  padding-top: 275px;
+  padding-bottom: 40px;
   align-items: center;
+}
+
+@media(min-width: 768px) {
+  .profile__save-wrap {
+    padding-top: 223px;
+  }
 }
 
 .profile__save {
