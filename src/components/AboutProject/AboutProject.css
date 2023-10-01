@@ -1,25 +1,25 @@
 
 /* about-project */
 
-.about-project {
+.project {
   background-color: var(--background-color-main);
   color: var(--black);
   padding: 70px 18px;
 }
 
 @media (min-width: 768px) {
-  .about-project {
+  .project {
     padding: 90px 50px;
   }
 }
 
 @media (min-width: 1024px) {
-  .about-project {
+  .project {
     padding: 109px 70px;
   }
 }
 
-.about-project__title {
+.project__title {
   font-size: 18px;
   font-style: normal;
   font-weight: var(--weight-normal);
@@ -31,7 +31,7 @@
 }
 
 @media (min-width: 768px) {
-  .about-project__title {
+  .project__title {
     font-size: 22px;
     letter-spacing: -0.88px;
     padding-bottom: 23px;
