@@ -6,7 +6,7 @@ function Profile() {
     <>
       <main className='content content_main'>
         <section className='profile'>
-          <h2 className='profile__name'>Привет Кирилл!</h2>
+          <h1 className='profile__name'>Привет Кирилл!</h1>
           <form className='profile__form' id='profileField' name='form'>
             <label className='profile__field-wrap'>
               <span className='profile__label'>Имя</span>
