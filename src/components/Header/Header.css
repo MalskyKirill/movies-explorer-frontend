@@ -171,6 +171,8 @@
     top: 9px;
     background-size: 50px;
     background-repeat: no-repeat;
+    border: none;
+    background-color: var(--background-color-main);
   }
 }
 

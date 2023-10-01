@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 function Header() {
   const [burgerOpen, setBurgerOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   const location = useLocation();
 
@@ -36,10 +36,10 @@ function Header() {
           <p className='header__txt-account'>Аккаунт</p>
         </Link>
       </nav>
-      <div
+      <button
         onClick={() => setBurgerOpen(!burgerOpen)}
         className='header__mobile-btn'
-      ></div>
+      ></button>
     </>
   ) : (
     <nav>
