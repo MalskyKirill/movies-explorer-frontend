@@ -160,6 +160,9 @@
   background-image: url('../../images/burger.svg');
   display: block;
   cursor: pointer;
+  background-repeat: no-repeat;
+  border: none;
+  background-color: var(--background-color-main);
 }
 
 @media (min-width: 768px) {
@@ -170,9 +173,6 @@
     right: 33px;
     top: 9px;
     background-size: 50px;
-    background-repeat: no-repeat;
-    border: none;
-    background-color: var(--background-color-main);
   }
 }
 
@@ -180,6 +180,10 @@
   .header__mobile-btn {
     display: none;
   }
+}
+
+.header__mobile-btn_grey {
+  background-color: var(--background-color-gray);
 }
 
 

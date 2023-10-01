@@ -23,7 +23,7 @@ function MoviesCard({ movies, onCardDelete }) {
         <img className='movie__foto' src={src} alt={movies.nameRU} />
       </a>
       <div className='movie__box'>
-        <p className='movie__name'>{movies.nameRU}</p>
+        <h2 className='movie__name'>{movies.nameRU}</h2>
         {location.pathname === '/movies' ? (
           <button
             className={`movie__button ${isLiked ? 'movie__button_saved' : ''}`}

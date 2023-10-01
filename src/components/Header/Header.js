@@ -38,7 +38,7 @@ function Header() {
       </nav>
       <button
         onClick={() => setBurgerOpen(!burgerOpen)}
-        className='header__mobile-btn'
+        className={location.pathname === '/' ? 'header__mobile-btn header__mobile-btn_grey ' : 'header__mobile-btn'}
       ></button>
     </>
   ) : (
