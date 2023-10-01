@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 function Header() {
   const [burgerOpen, setBurgerOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   const location = useLocation();
 
@@ -33,7 +33,6 @@ function Header() {
           </li>
         </ul>
         <Link to={'/profile'} className='header__btn-account'>
-          <img className='header__img-account' src={accauntLogo} alt='иконка' />
           <p className='header__txt-account'>Аккаунт</p>
         </Link>
       </div>

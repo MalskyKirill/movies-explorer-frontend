@@ -46,14 +46,9 @@ function Burger({ burgerOpen, setBurgerOpen }) {
             </Link>
           </li>
         </ul>
-        <button className='burger__btn-account'>
-          <img
-            className='burger__img-account'
-            src={accauntLogo}
-            alt='burger'
-          />
+        <Link className='burger__btn-account'>
           <p className='burger__txt-account'>Аккаунт</p>
-        </button>
+        </Link>
       </div>
     </div>
   );

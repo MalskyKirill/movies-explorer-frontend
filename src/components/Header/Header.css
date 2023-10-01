@@ -233,6 +233,11 @@
   font-size: 14px;
 }
 
+.header__txt-account::before {
+  content: url('../../images/icon__COLOR_icon-main.svg');
+  padding-right: 6px;
+}
+
 .header__link-content-wrap {
   margin-right: 16px;
 }
