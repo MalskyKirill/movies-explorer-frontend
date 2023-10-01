@@ -7,7 +7,7 @@ function Footer() {
 
   return (
     <footer className={location.pathname === '/saved-movies' ? 'footer footer_saved' : 'footer'}>
-      <p className="footer__caption">Учебный проект Яндекс.Практикум х BeatFilm.</p>
+      <h3 className="footer__caption">Учебный проект Яндекс.Практикум х BeatFilm.</h3>
       <nav className="footer__block">
         <ul className="footer__links">
           <li className="footer__link-wrap">
