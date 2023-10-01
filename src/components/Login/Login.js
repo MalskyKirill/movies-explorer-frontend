@@ -6,7 +6,7 @@ function Login() {
     <>
      <main className="content content_main">
       <section className="registration">
-        <form className="registration__form" id="registrationField" name="registrationForm" >
+        <form className="registration__form" id="login-field" name="registration-form" >
           <label className="registration__field-wrap registration__field-wrap_login">
             <span className="registration__label">E-mail</span>
             <input id="emailLog" type="email" className="registration__field registration__field_next_email"

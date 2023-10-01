@@ -5,7 +5,7 @@ function Register() {
   return(
     <main class="content content_main">
       <section class="registration">
-        <form class="registration__form" id="registrationField" name="registrationForm" novalidate>
+        <form class="registration__form" id="registration-field" name="registration-form" novalidate>
           <label class="registration__field-wrap">
             <span class="registration__label">Имя</span>
             <input id="nameReg" type="text" class="registration__field registration__field_next_name" placeholder="Имя"
