@@ -1,0 +1,22 @@
+/* main */
+.content {
+  display: block;
+}
+
+.content_main {
+  background-color: #FAFAFA;
+}
+
+
+/* elements */
+
+.elements {
+  padding: 24px 0 30px
+}
+
+@media(min-width: 768px) {
+  .elements {
+    padding-top: 70px;
+  }
+}
+

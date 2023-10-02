@@ -1,0 +1,125 @@
+/* search */
+
+.search {
+  border-bottom: 1px solid #E8E8E8;
+  width: 94%;
+  margin: 0 auto 10px;
+  padding: 80px 0 45px;
+}
+
+@media(min-width: 768px) {
+  .search {
+    flex-direction: row;
+    gap: 0;
+    width: 92%;
+    margin: 0 auto 11px;
+    padding-bottom: 109px;
+  }
+}
+
+@media(min-width: 1280px) {
+  .search {
+    padding: 70px 0 69px;
+    width: 89%;
+  }
+}
+
+.search__wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 46px;
+  width: 100%;
+  border-radius: 9px;
+  background-color: #FAFAFA;
+  ;
+}
+
+@media(min-width: 768px) {
+  .search__wrap {
+    display: grid;
+    grid-template-columns: 2.41fr 1fr;
+    box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.08);
+    gap: 0;
+    background-color: var(--white);
+    ;
+  }
+}
+
+@media(min-width: 1280px) {
+  .search__wrap {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.08);
+    gap: 0;
+    background-color: var(--white);
+    ;
+  }
+}
+
+
+.search__form {
+  display: flex;
+  justify-content: center;
+  box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  height: 72px;
+  margin: 0 auto;
+  position: relative;
+}
+
+@media(min-width: 768px) {
+  .search__form {
+    box-shadow: none;
+  }
+}
+
+.search__text {
+  width: 100%;
+  border-radius: 9px;
+  padding: 0 19px;
+  border: none;
+  background-color: var(--white);
+}
+
+@media(min-width: 768px) {
+  .search__text {}
+}
+
+.search__text::placeholder {
+  color: #A0A0A0;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  padding-left: 3px;
+}
+
+@media(min-width: 768px) {
+  .search__text::placeholder {
+    padding-left: 43px;
+    padding-top: 5px;
+    font-size: 18px;
+    background-image: url('../../images/icon-search.svg');
+    background-repeat: no-repeat;
+  }
+}
+
+
+.search__button {
+  width: 34px;
+  height: 34px;
+  position: absolute;
+  top: 19px;
+  right: 19px;
+  background-image: url('../../images/find.svg');
+  cursor: pointer;
+  border: none;
+  background-color: var(--white);
+  transition: opacity 0.3s;
+  cursor: pointer;
+}
+
+
+.search__button:hover {
+  opacity: 0.7;
+}
