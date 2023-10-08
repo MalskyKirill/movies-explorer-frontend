@@ -7,7 +7,7 @@ import LoginScreen from '../../pages/LoginScreen';
 import RegistrationScreen from '../../pages/RegistrationScreen';
 import PNFScreen from '../../pages/PNFScreen/PNFScreen';
 import { Route, Routes } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { moviesApi } from '../../utils/MoviesApi';
 
 function App() {
@@ -17,6 +17,7 @@ function App() {
   const [isSearchInputEmpty, setIsSearchInputEmpty] = useState(false); //проверка на пустой инпут
   const [isLoading, setIsLoading] = useState(false); // показать прелоадер
   const [showMoreButton, setShowMoreButton] = useState(false); //показать кнопку еще
+  const [isSearchMovies, setIsSearchMovies] = useState(false); //проверка на пустой searchMovies
 
   const inputHandler = (evt) => {
     setSearchText(evt.target.value);
@@ -29,8 +30,18 @@ function App() {
       return;
     }
 
-    setIsSearchInputEmpty(false);
-    getSourceArrayMovies();
+    const filterMovies = getFilteredData(movies);
+
+    if (filterMovies.length === 0) {
+      setIsSearchMovies(true);
+      setShowMoreButton(true);
+    } else {
+      setIsSearchMovies(false);
+      setShowMoreButton(false);
+    }
+
+    setSearchMovies(filterMovies);
+
   }; //отправка формы
 
   //получаем массив фильмов со стороннего Api и сохраняем его в lokalStorege
@@ -55,6 +66,20 @@ function App() {
     }
   };
 
+  // функция поиска совпадений названий фильмов
+  const getFilteredData = () => {
+    if (!searchText) {
+      setSearchText(true);
+    }
+
+    return movies.filter((el) => el['nameRU'].includes(searchText));
+  };
+
+  useEffect(() => {
+    getSourceArrayMovies();
+    setShowMoreButton(true);
+  }, [])
+
   return (
     <div className='page'>
       <Routes>
@@ -68,6 +93,7 @@ function App() {
               inputHandler={inputHandler}
               handleSubmitMovies={handleSubmitMovies}
               isLoading={isLoading}
+              searchMovies={searchMovies}
             />
           }
         />

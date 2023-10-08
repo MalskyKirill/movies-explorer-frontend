@@ -6,9 +6,11 @@ import ButtonMoreMovies from '../ButtonMoreMovies/ButtonMoreMovies';
 import { useLocation } from 'react-router-dom';
 
 
-function Movies({searchText, isSearchInputEmpty, inputHandler, handleSubmitMovies, isLoading}) {
+function Movies({searchText, isSearchInputEmpty, inputHandler, handleSubmitMovies, isLoading, searchMovies}) {
 
   const location = useLocation();
+
+  console.log(searchMovies)
 
   return (
     <main className='content content_main'>
@@ -20,7 +22,7 @@ function Movies({searchText, isSearchInputEmpty, inputHandler, handleSubmitMovie
       />
       <section className='elements' aria-label='Фильмы'>
         {isLoading && <Preloader />}
-        {!isLoading && <MoviesCardList />}
+        {!isLoading && <MoviesCardList searchMovies={searchMovies}/>}
       </section>
       {location.pathname === '/movies' ? <ButtonMoreMovies /> : <></>}
     </main>

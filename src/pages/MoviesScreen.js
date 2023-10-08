@@ -8,6 +8,7 @@ function MoviesScreen({
   inputHandler,
   handleSubmitMovies,
   isLoading,
+  searchMovies
 }) {
   return (
     <>
@@ -18,6 +19,7 @@ function MoviesScreen({
         inputHandler={inputHandler}
         handleSubmitMovies={handleSubmitMovies}
         isLoading={isLoading}
+        searchMovies={searchMovies}
       />
       <Footer />
     </>
