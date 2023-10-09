@@ -1,12 +1,36 @@
 import './SearchForm.css';
 import FilterCheckbox from './FilterCheckbox/FilterCheckbox';
 
-function SearchForm({searchText, isSearchInputEmpty, inputHandler, handleSubmitMovies}) {
+function SearchForm({
+  searchText,
+  isSearchInputEmpty,
+  inputHandler,
+  handleSubmitMovies,
+  showMoreButton,
+  isSearchMovies,
+  isApiError,
+}) {
   return (
     <section className='search' aria-label='Поиск'>
       <div className='search__wrap'>
-        <form className='search__form' name='search-form' onSubmit={handleSubmitMovies}>
-        {isSearchInputEmpty && <span className='search__error'>{'Нужно ввести ключевое слово'}</span>}
+        <form
+          className='search__form'
+          name='search-form'
+          onSubmit={handleSubmitMovies}
+        >
+          {isSearchInputEmpty && (
+            <span className='search__error'>
+              {'Нужно ввести ключевое слово'}
+            </span>
+          )}
+          {isSearchMovies && (
+            <span className='search__error'>{'Ничего не найдено'}</span>
+          )}
+          {isApiError && (
+            <span className='search__error'>
+              {'Во время запроса произошла ошибка.'}
+            </span>
+          )}
           <input
             type='text'
             className='search__text'

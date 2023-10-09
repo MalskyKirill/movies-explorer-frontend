@@ -14,9 +14,10 @@ function Movies() {
   const [searchText, setSearchText] = useState(''); //название фильма в инпуте поиска
   const [isSearchInputEmpty, setIsSearchInputEmpty] = useState(false); //проверка на пустой инпут
   const [isLoading, setIsLoading] = useState(false); // показать прелоадер
-  const [showMoreButton, setShowMoreButton] = useState(false); //показать кнопку еще
+  const [isShowMoreButton, setIsShowMoreButton] = useState(true); //показать кнопку еще
   const [isSearchMovies, setIsSearchMovies] = useState(false); //проверка на пустой searchMovies
   const [isShot, setIsShot] = useState(false); // проверка на короткометражку
+  const [isApiError, setIsApiError] = useState(false); //проверка на ошибку при запросе
 
   const location = useLocation();
 
@@ -31,12 +32,12 @@ function Movies() {
       return;
     }
 
-    if (searchMovies.length === 0) {
+    setIsSearchInputEmpty(false);
+
+    if (searchMovies.length !== 0) {
       setIsSearchMovies(true);
-      setShowMoreButton(true);
     } else {
       setIsSearchMovies(false);
-      setShowMoreButton(false);
     }
 
     getSourceArrayMovies(searchText);
@@ -45,7 +46,7 @@ function Movies() {
   //получаем массив фильмов со стороннего Api и сохраняем его в lokalStorege
   const getSourceArrayMovies = (searchText) => {
     if (movies.length === 0) {
-      console.log(1)
+      console.log(1);
       setIsLoading(true);
       moviesApi
         .getMovies()
@@ -57,11 +58,11 @@ function Movies() {
         })
         .catch((err) => {
           console.log(err);
-          setIsSearchMovies(true);
+          setIsApiError(true);
         })
         .finally(() => setIsLoading(false));
     } else {
-      console.log(searchText, movies)
+      console.log(searchText, movies);
 
       filterMovies(searchText, movies);
     }
@@ -69,7 +70,6 @@ function Movies() {
 
   // функция фильтрации фильмов
   const filterMovies = useCallback((searchText, movies) => {
-    console.log(1)
     localStorage.setItem('moviesData', JSON.stringify(movies));
     localStorage.setItem('searchText', JSON.stringify(searchText));
     const filter = movies.filter((movie) =>
@@ -100,12 +100,18 @@ function Movies() {
         isSearchInputEmpty={isSearchInputEmpty}
         inputHandler={inputHandler}
         handleSubmitMovies={handleSubmitMovies}
+        isSearchMovies={isSearchMovies}
+        isApiError={isApiError}
       />
       <section className='elements' aria-label='Фильмы'>
         {isLoading && <Preloader />}
-        {!isLoading && <MoviesCardList searchMovies={searchMovies} />}
+        {!isLoading && (
+          <MoviesCardList
+            searchMovies={searchMovies}
+          />
+        )}
       </section>
-      {location.pathname === '/movies' ? <ButtonMoreMovies /> : <></>}
+      {location.pathname === '/movies' && isShowMoreButton ? <ButtonMoreMovies /> : <></>}
     </main>
   );
 }
