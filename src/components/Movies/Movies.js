@@ -10,8 +10,6 @@ function Movies({searchText, isSearchInputEmpty, inputHandler, handleSubmitMovie
 
   const location = useLocation();
 
-  console.log(searchMovies)
-
   return (
     <main className='content content_main'>
       <SearchForm
