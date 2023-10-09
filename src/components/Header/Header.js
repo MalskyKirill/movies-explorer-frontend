@@ -4,17 +4,16 @@ import accauntLogo from '../../images/icon__COLOR_icon-main.svg';
 import Burger from '../Burger/Burger';
 import { useState } from 'react';
 
-function Header() {
+function Header({loggedIn}) {
   const [burgerOpen, setBurgerOpen] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
 
   const location = useLocation();
 
   const headerAuthElement =
     location.pathname === '/signup' ? (
-      <h1 class='header__hello'>Добро пожаловать!</h1>
+      <h1 className='header__hello'>Добро пожаловать!</h1>
     ) : (
-      <h1 class='header__hello'>Рады видеть!</h1>
+      <h1 className='header__hello'>Рады видеть!</h1>
     );
 
   const headerLoggedElement = loggedIn ? (

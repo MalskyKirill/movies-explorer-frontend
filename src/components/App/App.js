@@ -9,6 +9,7 @@ import PNFScreen from '../../pages/PNFScreen/PNFScreen';
 import { Route, Routes } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { moviesApi } from '../../utils/MoviesApi';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const [movies, setMovies] = useState([]); // массив карточек фильмов
@@ -18,6 +19,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false); // показать прелоадер
   const [showMoreButton, setShowMoreButton] = useState(false); //показать кнопку еще
   const [isSearchMovies, setIsSearchMovies] = useState(false); //проверка на пустой searchMovies
+  const [loggedIn, setLoggedIn] = useState(false); //проверка на авторизацию
 
   const inputHandler = (evt) => {
     setSearchText(evt.target.value);
@@ -98,7 +100,7 @@ function App() {
           }
         />
         <Route path='/saved-movies' element={<SavedMoviesScreen />} />
-        <Route path='/profile' element={<ProfileScreen />} />
+        <Route path='/profile' element={<ProtectedRoute element={ProfileScreen} />} />
         <Route path='/signup' element={<RegistrationScreen />} />
         <Route path='/signin' element={<LoginScreen />} />
         <Route path='*' element={<PNFScreen />} />
@@ -106,5 +108,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
