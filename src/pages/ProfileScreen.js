@@ -1,10 +1,10 @@
 import Header from '../components/Header/Header';
 import Profile from '../components/Profile/Profile';
 
-function ProfileScreen() {
+function ProfileScreen({loggedIn}) {
   return(
     <>
-      <Header />
+      <Header loggedIn={loggedIn}/>
       <Profile />
     </>
   )

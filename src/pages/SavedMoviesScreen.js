@@ -2,10 +2,10 @@ import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import Movies from '../components/Movies/Movies';
 
-function SavedMoviesScreen() {
+function SavedMoviesScreen({loggedIn}) {
   return (
     <>
-      <Header />
+      <Header loggedIn={loggedIn}/>
       <Movies />
       <Footer />
     </>

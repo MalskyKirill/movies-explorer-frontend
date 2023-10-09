@@ -1,10 +1,10 @@
 import Header from '../components/Header/Header';
 import Register from '../components/Register/Register';
 
-function RegistrationScreen() {
+function RegistrationScreen({loggedIn}) {
   return (
     <>
-      <Header />
+      <Header loggedIn={loggedIn}/>
       <Register />
     </>
   );

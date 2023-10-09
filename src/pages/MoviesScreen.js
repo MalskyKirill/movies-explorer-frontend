@@ -8,11 +8,12 @@ function MoviesScreen({
   inputHandler,
   handleSubmitMovies,
   isLoading,
-  searchMovies
+  searchMovies,
+  loggedIn
 }) {
   return (
     <>
-      <Header />
+      <Header loggedIn={loggedIn}/>
       <Movies
         searchText={searchText}
         isSearchInputEmpty={isSearchInputEmpty}
