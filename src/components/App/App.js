@@ -15,9 +15,8 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false); //проверка на авторизацию
   const [currentUser, setCurrentUser] = useState({}); //стейт пользователя
-  const [userEmail, setUserEmail] = useState(''); //стейт емайла
 
-  const [isApiRegisterError, setIsApiRegisterError] = useState(false);
+  const [isApiError, setIsApiError] = useState(false);
 
   const navigate = useNavigate();
 
@@ -26,16 +25,33 @@ function App() {
     mainApi
       .register(email, password, name)
       .then((res) => {
-        console.log(res)
-        navigate('/signin', { replace: true });
+
+        navigate('/movies', { replace: true });
+        setLoggedIn(true);
       })
       .catch((err) => {
         console.log(err);
-        setIsApiRegisterError(true)
+        setIsApiError(true);
       });
   };
 
+  //авторизация
+  const handleLogin = (email, password) => {
+    mainApi
+      .authorize(email, password)
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem('token', data.token);
 
+          navigate('/movies', { replace: true });
+          setLoggedIn(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsApiError(true);
+      });
+  };
 
   return (
     <div className='page'>
@@ -58,7 +74,11 @@ function App() {
             loggedIn ? (
               <Navigate to='/movies' replace />
             ) : (
-              <RegistrationScreen loggedIn={loggedIn} handleRegistration={handleRegistration} isApiRegisterError={isApiRegisterError}/>
+              <RegistrationScreen
+                loggedIn={loggedIn}
+                handleRegistration={handleRegistration}
+                isApiRegisterError={isApiError}
+              />
             )
           }
         />
@@ -68,7 +88,11 @@ function App() {
             loggedIn ? (
               <Navigate to='/movies' replace />
             ) : (
-              <LoginScreen loggedIn={loggedIn} />
+              <LoginScreen
+                loggedIn={loggedIn}
+                isApiError={isApiError}
+                handleLogin={handleLogin}
+              />
             )
           }
         />

@@ -60,7 +60,11 @@ function Register({ handleRegistration, isApiRegisterError }) {
     } else {
       setInputsValid(true);
     }
-  }, [nameError, emailError, passwordError]);
+
+    if(!name || !email || !password) {
+      setInputsValid(false)
+    };
+  }, [nameError, emailError, passwordError, name, email, password]);
 
   return (
     <main className='content content_main'>
