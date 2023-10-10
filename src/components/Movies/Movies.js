@@ -4,7 +4,6 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
 import ButtonMoreMovies from '../ButtonMoreMovies/ButtonMoreMovies';
-import { useLocation } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { moviesApi } from '../../utils/MoviesApi';
 

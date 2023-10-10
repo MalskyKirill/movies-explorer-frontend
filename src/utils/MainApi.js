@@ -1,7 +1,8 @@
 const URL = 'https://api.movie-malsky.nomoredo.nomoredomainsrocks.ru';
 
+
 class MainApi {
-  constructot(url) {
+  constructor(url) {
     this.url = url;
   }
 
@@ -151,4 +152,4 @@ class MainApi {
 
 }
 
-export const mainApi = new MainApi(URL);
+export const mainApi = new MainApi('https://api.movie-malsky.nomoredo.nomoredomainsrocks.ru');

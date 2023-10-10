@@ -8,7 +8,6 @@ function MoviesCardList({searchMovies, cardsCount}) {
     // setCards((cards) => cards.filter((card) => card.id !== id));
   };
 
-  console.log(cardsCount)
 
   return (
     <ul className='movies'>
