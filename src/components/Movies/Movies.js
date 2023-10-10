@@ -14,16 +14,14 @@ function Movies() {
   const [searchText, setSearchText] = useState(''); //название фильма в инпуте поиска
   const [isSearchInputEmpty, setIsSearchInputEmpty] = useState(false); //проверка на пустой инпут
   const [isLoading, setIsLoading] = useState(false); // показать прелоадер
-  // const [isShowMoreButton, setIsShowMoreButton] = useState(true); //показать кнопку еще
+
   const [isSearchMovies, setIsSearchMovies] = useState(false); //проверка на пустой searchMovies
-  const [isShot, setIsShot] = useState(false); // проверка на короткометражку
+  const [isShort, setIsShort] = useState(false); // проверка на короткометражку
   const [isApiError, setIsApiError] = useState(false); //проверка на ошибку при запросе
 
   const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth); // текущий размер экрана
   const [cardsCount, setCardsCount] = useState(5); //количество карточек изначально на странице
   const [moreCardsCount, setMoreCardsCount] = useState(0); //добавляемое количество карточек
-
-  const location = useLocation();
 
   // изменение инпута
   const inputHandler = (evt) => {
@@ -39,25 +37,19 @@ function Movies() {
     }
     setIsSearchInputEmpty(false);
 
-    searchMovies.length !== 0
-      ? setIsSearchMovies(true)
-      : setIsSearchMovies(false);
-
     getSourceArrayMovies(searchText);
   };
 
   //получаем массив фильмов со стороннего Api и сохраняем его в lokalStorege
   const getSourceArrayMovies = (searchText) => {
     if (movies.length === 0) {
-      console.log(1);
       setIsLoading(true);
       moviesApi
         .getMovies()
         .then((res) => {
           setMovies(res);
           setIsLoading(false);
-          setIsSearchMovies(false);
-          filterMovies(searchText, res);
+          filterMovies(searchText, isShort, res);
         })
         .catch((err) => {
           console.log(err);
@@ -65,25 +57,39 @@ function Movies() {
         })
         .finally(() => setIsLoading(false));
     } else {
-      filterMovies(searchText, movies);
+      filterMovies(searchText, isShort, movies);
     }
   };
 
   // функция фильтрации фильмов
-  const filterMovies = useCallback((searchText, movies) => {
+  const filterMovies = useCallback((searchText, isShort, movies) => {
     localStorage.setItem('moviesData', JSON.stringify(movies));
     localStorage.setItem('searchText', JSON.stringify(searchText));
+    localStorage.setItem('shorts', JSON.stringify(isShort));
+
     const filter = movies.filter((movie) =>
       movie.nameRU.toLowerCase().includes(searchText.toLowerCase())
     );
+    const filterShorts = filter.filter((movie) => movie.duration <= 40);
 
-    setSearchMovies(filter);
+    isShort ? setSearchMovies(filterShorts) : setSearchMovies(filter);
+
+    filter.length === 0
+    ? setIsSearchMovies(true)
+    : setIsSearchMovies(false);
   }, []);
 
-  // определение короткометражки
-  const shotMovies = (movie) => {
-    return movie.duration <= 40 ? setIsShot(true) : setIsShot(false);
-  };
+  const handleShort = () => {
+    if (isShort) {
+      setIsShort(false)
+      filterMovies(searchText, false, movies)
+      localStorage.setItem('shorts', JSON.stringify(false))
+    } else {
+      setIsShort(true)
+      filterMovies(searchText, true, movies)
+      localStorage.setItem('shorts', JSON.stringify(true))
+    }
+  }
 
   // проверяем количество карточек в зависимости от разммера экрана
   const checkCardsCount = () => {
@@ -91,7 +97,7 @@ function Movies() {
       setCardsCount(16);
       setMoreCardsCount(4);
     } else if (windowInnerWidth >= 1044) {
-      setCardsCount(9);
+      setCardsCount(12);
       setMoreCardsCount(3);
     } else if (windowInnerWidth >= 768) {
       setCardsCount(8);
@@ -103,22 +109,30 @@ function Movies() {
   };
 
   //устанавливает значение размера экрана
-  function handleResize() {
+  const handleResize = () => {
     setWindowInnerWidth(window.innerWidth);
   }
 
   // добавляет карточки при нажании на кнопку еще
-  function handleLoadMoreCards() {
+  const handleLoadMoreCards = () => {
     checkCardsCount();
     setCardsCount(cardsCount + moreCardsCount);
   }
 
   useEffect(() => {
-    if (localStorage.moviesData && localStorage.searchText) {
+    if (
+      localStorage.moviesData &&
+      localStorage.searchText &&
+      localStorage.shorts
+    ) {
       const movies = JSON.parse(localStorage.moviesData);
       const search = JSON.parse(localStorage.searchText);
+      const isShort = JSON.parse(localStorage.shorts);
+
       setMovies(movies);
-      filterMovies(search, movies);
+      setIsShort(isShort);
+      setSearchText(search);
+      filterMovies(search, isShort, movies);
     }
   }, [filterMovies]);
 
@@ -138,6 +152,7 @@ function Movies() {
         handleSubmitMovies={handleSubmitMovies}
         isSearchMovies={isSearchMovies}
         isApiError={isApiError}
+        handleShort={handleShort}
       />
       <section className='elements' aria-label='Фильмы'>
         {isLoading && <Preloader />}
