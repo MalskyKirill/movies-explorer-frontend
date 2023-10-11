@@ -1,6 +1,5 @@
 const URL = 'https://api.movie-malsky.nomoredo.nomoredomainsrocks.ru';
 
-
 class MainApi {
   constructor(url) {
     this.url = url;
@@ -56,10 +55,10 @@ class MainApi {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      }.then((res) => {
-        return this._getResponseData(res);
-      }),
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => {
+      return this._getResponseData(res);
     });
   }
 
@@ -68,10 +67,10 @@ class MainApi {
     return fetch(`${this.url}/users/me`, {
       headers: {
         'Content-Type': 'application/json',
-      }
+      },
     }).then((res) => {
       return this._getResponseData(res);
-    })
+    });
   }
 
   //отправляет изменeнные данные профайла на сервер
@@ -146,10 +145,11 @@ class MainApi {
         'Content-Type': 'application/json',
       },
     }).then((res) => {
-      return this._getResponseData(res)
-    })
+      return this._getResponseData(res);
+    });
   }
-
 }
 
-export const mainApi = new MainApi('https://api.movie-malsky.nomoredo.nomoredomainsrocks.ru');
+export const mainApi = new MainApi(
+  'https://api.movie-malsky.nomoredo.nomoredomainsrocks.ru'
+);

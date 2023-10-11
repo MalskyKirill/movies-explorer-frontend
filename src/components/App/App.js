@@ -20,6 +20,10 @@ function App() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    tokenCheck();
+  }, []);
+
   //регистрация
   const handleRegistration = (email, password, name) => {
     mainApi
@@ -76,10 +80,6 @@ function App() {
       }
     }
   };
-
-  useEffect(() => {
-    tokenCheck();
-  }, []);
 
   return (
     <div className='page'>
