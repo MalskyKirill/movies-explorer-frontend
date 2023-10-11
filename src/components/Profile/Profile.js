@@ -108,7 +108,7 @@ function Profile({handleSingOut}) {
             )}
           </form>
           {!isRedact ? (
-            <Link to={'/'} className='profile__exit' type='button'>
+            <Link to={'/'} className='profile__exit' type='button' onClick={handleSingOut}>
               Выйти из аккаунта
             </Link>
           ) : (
