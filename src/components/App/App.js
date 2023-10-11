@@ -59,19 +59,65 @@ function App() {
     setLoggedIn(false);
   };
 
+  // проверка токена
+  const tokenCheck = () => {
+    if (localStorage.getItem('token')) {
+      const token = localStorage.getItem('token');
+
+      if (token) {
+        mainApi.getContent(token)
+          .then((res) => {
+            if (res) {
+              setLoggedIn(true);
+              navigate('/', { replace: true });
+            }
+          })
+          .catch((err) => console.log(err));
+      }
+    }
+  };
+
+  useEffect(() => {
+    tokenCheck();
+  }, []);
+
   return (
     <div className='page'>
       <Routes>
-        <Route path='/' element={<LandingScreen loggedIn={loggedIn} handleSingOut={handleSingOut}/>} />
-        <Route path='/movies' element={<MoviesScreen loggedIn={loggedIn} handleSingOut={handleSingOut}/>} />
+        <Route
+          path='/'
+          element={
+            <LandingScreen loggedIn={loggedIn} handleSingOut={handleSingOut} />
+          }
+        />
+        <Route
+          path='/movies'
+          element={
+            <ProtectedRoute
+              element={MoviesScreen}
+              loggedIn={loggedIn}
+              handleSingOut={handleSingOut}
+            />
+          }
+        />
         <Route
           path='/saved-movies'
-          element={<SavedMoviesScreen loggedIn={loggedIn} handleSingOut={handleSingOut}/>}
+          element={
+            <ProtectedRoute
+              element={SavedMoviesScreen}
+              loggedIn={loggedIn}
+              handleSingOut={handleSingOut}
+            />
+          }
         />
         <Route
           path='/profile'
           element={
-            <ProtectedRoute element={ProfileScreen} loggedIn={loggedIn} handleSingOut={handleSingOut}/>
+            <ProtectedRoute
+              element={ProfileScreen}
+              loggedIn={loggedIn}
+              handleSingOut={handleSingOut}
+            />
           }
         />
         <Route
