@@ -21,9 +21,7 @@ function App() {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    tokenCheck();
-  }, []);
+  console.log(currentUser)
 
   //регистрация
   const handleRegistration = (email, password, name) => {
@@ -85,6 +83,19 @@ function App() {
       }
     }
   };
+
+    //получение данных  с сервера
+    useEffect(() => {
+      Promise.all([mainApi.getCurrentUser()])
+        .then(([resUserData]) => {
+          setCurrentUser(resUserData);
+        })
+        .catch((err) => console.log(err));
+    }, []);
+
+    useEffect(() => {
+      tokenCheck();
+    }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

@@ -64,8 +64,11 @@ class MainApi {
 
   //получить данные о юзере с сервера
   getCurrentUser() {
+    const token = localStorage.getItem('token')
+
     return fetch(`${this.url}/users/me`, {
       headers: {
+        authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
     }).then((res) => {
