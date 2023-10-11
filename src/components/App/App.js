@@ -59,6 +59,9 @@ function App() {
   // выход из профайла
   const handleSingOut = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('moviesData');
+    localStorage.removeItem('searchText');
+    localStorage.removeItem('shorts');
     navigate('/sign-in', { replace: true });
     setLoggedIn(false);
   };
