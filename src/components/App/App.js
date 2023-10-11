@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { moviesApi } from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false); //проверка на авторизацию
@@ -72,7 +73,8 @@ function App() {
       const token = localStorage.getItem('token');
 
       if (token) {
-        mainApi.getContent(token)
+        mainApi
+          .getContent(token)
           .then((res) => {
             if (res) {
               setLoggedIn(true);
@@ -85,75 +87,80 @@ function App() {
   };
 
   return (
-    <div className='page'>
-      <Routes>
-        <Route
-          path='/'
-          element={
-            <LandingScreen loggedIn={loggedIn} handleSingOut={handleSingOut} />
-          }
-        />
-        <Route
-          path='/movies'
-          element={
-            <ProtectedRoute
-              element={MoviesScreen}
-              loggedIn={loggedIn}
-              handleSingOut={handleSingOut}
-            />
-          }
-        />
-        <Route
-          path='/saved-movies'
-          element={
-            <ProtectedRoute
-              element={SavedMoviesScreen}
-              loggedIn={loggedIn}
-              handleSingOut={handleSingOut}
-            />
-          }
-        />
-        <Route
-          path='/profile'
-          element={
-            <ProtectedRoute
-              element={ProfileScreen}
-              loggedIn={loggedIn}
-              handleSingOut={handleSingOut}
-            />
-          }
-        />
-        <Route
-          path='/signup'
-          element={
-            loggedIn ? (
-              <Navigate to='/movies' replace />
-            ) : (
-              <RegistrationScreen
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className='page'>
+        <Routes>
+          <Route
+            path='/'
+            element={
+              <LandingScreen
                 loggedIn={loggedIn}
-                handleRegistration={handleRegistration}
-                isApiRegisterError={isApiError}
+                handleSingOut={handleSingOut}
               />
-            )
-          }
-        />
-        <Route
-          path='/signin'
-          element={
-            loggedIn ? (
-              <Navigate to='/movies' replace />
-            ) : (
-              <LoginScreen
+            }
+          />
+          <Route
+            path='/movies'
+            element={
+              <ProtectedRoute
+                element={MoviesScreen}
                 loggedIn={loggedIn}
-                isApiError={isApiError}
-                handleLogin={handleLogin}
+                handleSingOut={handleSingOut}
               />
-            )
-          }
-        />
-        <Route path='*' element={<PNFScreen />} />
-      </Routes>
-    </div>
+            }
+          />
+          <Route
+            path='/saved-movies'
+            element={
+              <ProtectedRoute
+                element={SavedMoviesScreen}
+                loggedIn={loggedIn}
+                handleSingOut={handleSingOut}
+              />
+            }
+          />
+          <Route
+            path='/profile'
+            element={
+              <ProtectedRoute
+                element={ProfileScreen}
+                loggedIn={loggedIn}
+                handleSingOut={handleSingOut}
+              />
+            }
+          />
+          <Route
+            path='/signup'
+            element={
+              loggedIn ? (
+                <Navigate to='/movies' replace />
+              ) : (
+                <RegistrationScreen
+                  loggedIn={loggedIn}
+                  handleRegistration={handleRegistration}
+                  isApiRegisterError={isApiError}
+                />
+              )
+            }
+          />
+          <Route
+            path='/signin'
+            element={
+              loggedIn ? (
+                <Navigate to='/movies' replace />
+              ) : (
+                <LoginScreen
+                  loggedIn={loggedIn}
+                  isApiError={isApiError}
+                  handleLogin={handleLogin}
+                />
+              )
+            }
+          />
+          <Route path='*' element={<PNFScreen />} />
+        </Routes>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
