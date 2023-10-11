@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './Profile.css';
 
-function Profile() {
+function Profile({handleSingOut}) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 

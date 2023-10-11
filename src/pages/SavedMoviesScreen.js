@@ -5,7 +5,7 @@ import Movies from '../components/Movies/Movies';
 function SavedMoviesScreen({loggedIn}) {
   return (
     <>
-      <Header loggedIn={loggedIn}/>
+      <Header loggedIn={loggedIn} />
       <Movies />
       <Footer />
     </>

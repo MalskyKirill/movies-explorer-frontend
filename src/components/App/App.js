@@ -25,7 +25,6 @@ function App() {
     mainApi
       .register(email, password, name)
       .then((res) => {
-
         navigate('/movies', { replace: true });
         setLoggedIn(true);
       })
@@ -53,19 +52,26 @@ function App() {
       });
   };
 
+  // выход из профайла
+  const handleSingOut = () => {
+    localStorage.removeItem('token');
+    navigate('/sign-in', { replace: true });
+    setLoggedIn(false);
+  };
+
   return (
     <div className='page'>
       <Routes>
-        <Route path='/' element={<LandingScreen loggedIn={loggedIn} />} />
-        <Route path='/movies' element={<MoviesScreen loggedIn={loggedIn} />} />
+        <Route path='/' element={<LandingScreen loggedIn={loggedIn} handleSingOut={handleSingOut}/>} />
+        <Route path='/movies' element={<MoviesScreen loggedIn={loggedIn} handleSingOut={handleSingOut}/>} />
         <Route
           path='/saved-movies'
-          element={<SavedMoviesScreen loggedIn={loggedIn} />}
+          element={<SavedMoviesScreen loggedIn={loggedIn} handleSingOut={handleSingOut}/>}
         />
         <Route
           path='/profile'
           element={
-            <ProtectedRoute element={ProfileScreen} loggedIn={loggedIn} />
+            <ProtectedRoute element={ProfileScreen} loggedIn={loggedIn} handleSingOut={handleSingOut}/>
           }
         />
         <Route

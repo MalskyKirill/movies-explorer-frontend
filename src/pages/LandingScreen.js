@@ -5,7 +5,7 @@ import Footer from '../components/Footer/Footer';
 function LandingScreen({loggedIn}) {
   return (
     <>
-      <Header loggedIn={loggedIn}/>
+      <Header loggedIn={loggedIn} />
       <Main />
       <Footer />
     </>
