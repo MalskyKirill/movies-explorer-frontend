@@ -16,12 +16,29 @@ import { CurrentUserContext } from '../../context/CurrentUserContext';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false); //проверка на авторизацию
   const [currentUser, setCurrentUser] = useState({}); //стейт пользователя
+  const [savedMovies, setSavedMovies] = useState({}); //стейт сохранненых фильмов
+
+  const [name, setName] = useState(''); // имя пользователя
+  const [email, setEmail] = useState(''); // email пользователя
 
   const [isApiError, setIsApiError] = useState(false);
 
   const navigate = useNavigate();
 
-  console.log(currentUser)
+  //получение данных  с сервера
+  useEffect(() => {
+    if (localStorage.token) {
+      Promise.all([mainApi.getCurrentUser()])
+        .then(([resUserData, resMoviesData]) => {
+          setCurrentUser(resUserData);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [loggedIn]);
+
+  useEffect(() => {
+    tokenCheck();
+  }, []);
 
   //регистрация
   const handleRegistration = (email, password, name) => {
@@ -44,6 +61,9 @@ function App() {
       .then((data) => {
         if (data.token) {
           localStorage.setItem('token', data.token);
+
+          setName(currentUser.name)
+          setEmail(currentUser.email)
 
           navigate('/movies', { replace: true });
           setLoggedIn(true);
@@ -83,19 +103,6 @@ function App() {
       }
     }
   };
-
-    //получение данных  с сервера
-    useEffect(() => {
-      Promise.all([mainApi.getCurrentUser()])
-        .then(([resUserData]) => {
-          setCurrentUser(resUserData);
-        })
-        .catch((err) => console.log(err));
-    }, []);
-
-    useEffect(() => {
-      tokenCheck();
-    }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -137,6 +144,10 @@ function App() {
                 element={ProfileScreen}
                 loggedIn={loggedIn}
                 handleSingOut={handleSingOut}
+                name={name}
+                email={email}
+                setName={setName}
+                setEmail={setEmail}
               />
             }
           />

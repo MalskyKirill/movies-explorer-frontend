@@ -1,44 +1,55 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import './Profile.css';
 
-function Profile({handleSingOut}) {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 
-  const [isValid, setIsValid] = useState(false)
+function Profile({ handleSingOut, name, email, setEmail, setName }) {
+  const currentUser = useContext(CurrentUserContext);
+
+  const [nameError, setNameError] = useState(false); // показать ошибку имени
+  const [emailError, setEmailError] = useState(false); // показать ошибку емаила
+
+  console.log(currentUser);
+
+  const [isValid, setIsValid] = useState(false);
 
   const [isRedact, setIsRedact] = useState(false);
 
   const handleRedact = () => {
-    setIsRedact(true)
-  }
+    setIsRedact(true);
+  };
 
   const handleNameChange = (evt) => {
-    setName(evt.target.value)
-  }
+    setName(evt.target.value);
+  };
 
   const handleEmailChange = (evt) => {
-    setEmail(evt.target.value)
-  }
+    setEmail(evt.target.value);
+  };
 
   const handleSubmit = (evt) => {
-    evt.preventDefault()
-    setIsRedact(false)
-  }
+    evt.preventDefault();
+    setIsRedact(false);
+  };
 
   useEffect(() => {
-    if(name.length >= 2 && email.length >= 2) {
-      setIsValid(true)
+    if (name.length >= 2 && email.length >= 2) {
+      setIsValid(true);
     }
-  }, [name, email])
+  }, [name, email]);
 
   return (
     <>
       <main className='content content_main'>
         <section className='profile'>
           <h1 className='profile__name'>Привет Кирилл!</h1>
-          <form className='profile__form' id='profile-field' name='form' onSubmit={handleSubmit}>
+          <form
+            className='profile__form'
+            id='profile-field'
+            name='form'
+            onSubmit={handleSubmit}
+          >
             <label className='profile__field-wrap'>
               <div className='profile__field-content'>
                 <span className='profile__label'>Имя</span>
@@ -56,9 +67,9 @@ function Profile({handleSingOut}) {
                   disabled={!isRedact}
                 />
               </div>
-              <span className='profile__field-error profile__field-error-name profile__field-error_visible'>
+              {nameError && <span className='profile__field-error profile__field-error-name profile__field-error_visible'>
                 ошибка имени
-              </span>
+              </span>}
             </label>
             <label className='profile__field-wrap'>
               <div className='profile__field-content'>
@@ -77,9 +88,9 @@ function Profile({handleSingOut}) {
                   disabled={!isRedact}
                 />
               </div>
-              <span className='profile__field-error profile__field-error-email profile__field-error_visible'>
+              {emailError && <span className='profile__field-error profile__field-error-email profile__field-error_visible'>
                 ошибка email
-              </span>
+              </span>}
             </label>
             {!isRedact ? (
               <button
@@ -100,7 +111,6 @@ function Profile({handleSingOut}) {
                   type='submit'
                   form='profile-field'
                   disabled={!isValid}
-
                 >
                   Сохранить
                 </button>
@@ -108,7 +118,12 @@ function Profile({handleSingOut}) {
             )}
           </form>
           {!isRedact ? (
-            <Link to={'/'} className='profile__exit' type='button' onClick={handleSingOut}>
+            <Link
+              to={'/'}
+              className='profile__exit'
+              type='button'
+              onClick={handleSingOut}
+            >
               Выйти из аккаунта
             </Link>
           ) : (
