@@ -55,7 +55,7 @@ class MainApi {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        authorization: `Bearer ${token}`,
       },
     }).then((res) => {
       return this._getResponseData(res);
@@ -68,8 +68,8 @@ class MainApi {
 
     return fetch(`${this.url}/users/me`, {
       headers: {
-        authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
       },
     }).then((res) => {
       return this._getResponseData(res);
@@ -78,10 +78,13 @@ class MainApi {
 
   //отправляет изменeнные данные профайла на сервер
   changeProfileData(name, email) {
+    const token = localStorage.getItem('token')
+
     return fetch(`${this.url}/users/me`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         name,

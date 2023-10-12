@@ -6,7 +6,7 @@ import ProfileScreen from '../../pages/ProfileScreen';
 import LoginScreen from '../../pages/LoginScreen';
 import RegistrationScreen from '../../pages/RegistrationScreen';
 import PNFScreen from '../../pages/PNFScreen/PNFScreen';
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { moviesApi } from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
@@ -18,12 +18,11 @@ function App() {
   const [currentUser, setCurrentUser] = useState({}); //стейт пользователя
   const [savedMovies, setSavedMovies] = useState({}); //стейт сохранненых фильмов
 
-  const [name, setName] = useState(''); // имя пользователя
-  const [email, setEmail] = useState(''); // email пользователя
-
   const [isApiError, setIsApiError] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location.pathname)
 
   //получение данных  с сервера
   useEffect(() => {
@@ -47,6 +46,7 @@ function App() {
       .then((res) => {
         navigate('/movies', { replace: true });
         setLoggedIn(true);
+        setIsApiError(false);
       })
       .catch((err) => {
         console.log(err);
@@ -62,11 +62,9 @@ function App() {
         if (data.token) {
           localStorage.setItem('token', data.token);
 
-          setName(currentUser.name)
-          setEmail(currentUser.email)
-
           navigate('/movies', { replace: true });
           setLoggedIn(true);
+          setIsApiError(false);
         }
       })
       .catch((err) => {
@@ -74,6 +72,16 @@ function App() {
         setIsApiError(true);
       });
   };
+
+  const handleUpdateProfile = (name, email) => {
+    mainApi.changeProfileData(name, email).then((newCurrentUserData) => {
+      setCurrentUser(newCurrentUserData)
+      setIsApiError(false);
+    }).catch((err) => {
+      console.log(err)
+      setIsApiError(true);
+    })
+  }
 
   // выход из профайла
   const handleSingOut = () => {
@@ -96,7 +104,7 @@ function App() {
           .then((res) => {
             if (res) {
               setLoggedIn(true);
-              navigate('/', { replace: true });
+              navigate(location.pathname, { replace: true });
             }
           })
           .catch((err) => console.log(err));
@@ -144,10 +152,8 @@ function App() {
                 element={ProfileScreen}
                 loggedIn={loggedIn}
                 handleSingOut={handleSingOut}
-                name={name}
-                email={email}
-                setName={setName}
-                setEmail={setEmail}
+                handleUpdateProfile={handleUpdateProfile}
+                isApiRegisterError={isApiError}
               />
             }
           />

@@ -4,15 +4,18 @@ import './Profile.css';
 
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 
-function Profile({ handleSingOut, name, email, setEmail, setName }) {
+function Profile({ handleSingOut, handleUpdateProfile, isApiError }) {
   const currentUser = useContext(CurrentUserContext);
+
+  const [name, setName] = useState(''); // имя пользователя
+  const [email, setEmail] = useState(''); // email пользователя
 
   const [nameError, setNameError] = useState(false); // показать ошибку имени
   const [emailError, setEmailError] = useState(false); // показать ошибку емаила
 
   console.log(currentUser);
 
-  const [isValid, setIsValid] = useState(false);
+  const [inputsValid, setInputsValid] = useState(false); // проверка валидности всех инпутов
 
   const [isRedact, setIsRedact] = useState(false);
 
@@ -20,24 +23,49 @@ function Profile({ handleSingOut, name, email, setEmail, setName }) {
     setIsRedact(true);
   };
 
-  const handleNameChange = (evt) => {
+  const nameHandler = (evt) => {
     setName(evt.target.value);
+
+    if (!/^[A-Za-zА-Яа-яЁё /s -]{2,}/.test(evt.target.value)) {
+      setNameError(true);
+    } else {
+      setNameError(false);
+    }
   };
 
-  const handleEmailChange = (evt) => {
+  const emailHandler = (evt) => {
     setEmail(evt.target.value);
+
+    if (!/^[\w]+@[a-zA-Z]+\.[a-zA-Z]{2,4}$/.test(evt.target.value)) {
+      setEmailError(true);
+    } else {
+      setEmailError(false);
+    }
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    handleUpdateProfile(name, email)
+
     setIsRedact(false);
   };
 
   useEffect(() => {
-    if (name.length >= 2 && email.length >= 2) {
-      setIsValid(true);
+    if (nameError || emailError ) {
+      setInputsValid(false);
+    } else {
+      setInputsValid(true);
     }
-  }, [name, email]);
+
+    if(!name || !email) {
+      setInputsValid(false)
+    };
+  }, [nameError, emailError, name, email]);
+
+  useEffect(() => {
+    setName(currentUser.name)
+    setEmail(currentUser.email)
+  }, [currentUser])
 
   return (
     <>
@@ -63,7 +91,7 @@ function Profile({ handleSingOut, name, email, setEmail, setName }) {
                   maxLength='40'
                   required
                   value={name || ''}
-                  onChange={handleNameChange}
+                  onChange={nameHandler}
                   disabled={!isRedact}
                 />
               </div>
@@ -84,7 +112,7 @@ function Profile({ handleSingOut, name, email, setEmail, setName }) {
                   maxLength='200'
                   required
                   value={email || ''}
-                  onChange={handleEmailChange}
+                  onChange={emailHandler}
                   disabled={!isRedact}
                 />
               </div>
@@ -103,14 +131,14 @@ function Profile({ handleSingOut, name, email, setEmail, setName }) {
               </button>
             ) : (
               <div className='profile__save-wrap'>
-                <span className='profile__field-error profile__field-error_save profile__field-error_visible'>
+                {isApiError && <span className='profile__field-error profile__field-error_save profile__field-error_visible'>
                   При обновлении профиля произошла ошибка.
-                </span>
+                </span>}
                 <button
                   className='profile__save'
                   type='submit'
                   form='profile-field'
-                  disabled={!isValid}
+                  disabled={!inputsValid}
                 >
                   Сохранить
                 </button>

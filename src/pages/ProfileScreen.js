@@ -1,16 +1,15 @@
 import Header from '../components/Header/Header';
 import Profile from '../components/Profile/Profile';
 
-function ProfileScreen({ loggedIn, handleSingOut, name, email, setEmail, setName }) {
+function ProfileScreen({ loggedIn, handleSingOut, handleUpdateProfile, isApiError }) {
+
   return (
     <>
       <Header loggedIn={loggedIn} />
       <Profile
         handleSingOut={handleSingOut}
-        name={name}
-        email={email}
-        setName={setName}
-        setEmail={setEmail}
+        isApiRegisterError={isApiError}
+        handleUpdateProfile={handleUpdateProfile}
       />
     </>
   );
