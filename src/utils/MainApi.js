@@ -64,7 +64,7 @@ class MainApi {
 
   //получить данные о юзере с сервера
   getCurrentUser() {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token');
 
     return fetch(`${this.url}/users/me`, {
       headers: {
@@ -78,7 +78,7 @@ class MainApi {
 
   //отправляет изменeнные данные профайла на сервер
   changeProfileData(name, email) {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token');
 
     return fetch(`${this.url}/users/me`, {
       method: 'PATCH',
@@ -96,36 +96,27 @@ class MainApi {
   }
 
   //создать фильм на нашем сервере
-  createMovie(
-    country,
-    director,
-    duration,
-    year,
-    description,
-    image,
-    trailerLink,
-    thumbnail,
-    movieId,
-    nameRU,
-    nameEN
-  ) {
+  createMovie(movie) {
+    const token = localStorage.getItem('token');
+
     return fetch(`${this.url}/movies`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        country,
-        director,
-        duration,
-        year,
-        description,
-        image,
-        trailerLink,
-        thumbnail,
-        movieId,
-        nameRU,
-        nameEN,
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        image: `https://api.nomoreparties.co${movie.image.url}`,
+        trailerLink: movie.trailerLink,
+        thumbnail: `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`,
+        movieId: movie.id,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
       }),
     }).then((res) => {
       return this._getResponseData(res);
@@ -146,9 +137,12 @@ class MainApi {
 
   //получить сохраненные фильмы с нашего сервера
   getSavedMovies() {
+    const token = localStorage.getItem('token');
+
     return fetch(`${this.url}/movies`, {
       headers: {
         'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
       },
     }).then((res) => {
       return this._getResponseData(res);

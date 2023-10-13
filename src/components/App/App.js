@@ -6,7 +6,13 @@ import ProfileScreen from '../../pages/ProfileScreen';
 import LoginScreen from '../../pages/LoginScreen';
 import RegistrationScreen from '../../pages/RegistrationScreen';
 import PNFScreen from '../../pages/PNFScreen/PNFScreen';
-import { Navigate, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { moviesApi } from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
@@ -16,25 +22,25 @@ import { CurrentUserContext } from '../../context/CurrentUserContext';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false); //проверка на авторизацию
   const [currentUser, setCurrentUser] = useState({}); //стейт пользователя
-  const [savedMovies, setSavedMovies] = useState({}); //стейт сохранненых фильмов
+  const [savedMovies, setSavedMovies] = useState([]); //стейт сохранненых фильмов
 
   const [isApiError, setIsApiError] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.pathname)
 
   //получение данных  с сервера
   useEffect(() => {
     if (localStorage.token) {
-      Promise.all([mainApi.getCurrentUser()])
-        .then(([resUserData, resMoviesData]) => {
+      Promise.all([mainApi.getCurrentUser(), mainApi.getSavedMovies()])
+        .then(([resUserData, {data}]) => {
           setCurrentUser(resUserData);
+          setSavedMovies(data)
         })
         .catch((err) => console.log(err));
     }
   }, [loggedIn]);
-
+console.log(savedMovies)
   useEffect(() => {
     tokenCheck();
   }, []);
@@ -74,14 +80,17 @@ function App() {
   };
 
   const handleUpdateProfile = (name, email) => {
-    mainApi.changeProfileData(name, email).then((newCurrentUserData) => {
-      setCurrentUser(newCurrentUserData)
-      setIsApiError(false);
-    }).catch((err) => {
-      console.log(err)
-      setIsApiError(true);
-    })
-  }
+    mainApi
+      .changeProfileData(name, email)
+      .then((newCurrentUserData) => {
+        setCurrentUser(newCurrentUserData);
+        setIsApiError(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsApiError(true);
+      });
+  };
 
   // выход из профайла
   const handleSingOut = () => {
@@ -92,6 +101,22 @@ function App() {
     navigate('/sign-in', { replace: true });
     setLoggedIn(false);
   };
+
+  const handleSaveMovie = (movie) => {
+    mainApi
+      .createMovie(movie)
+      .then((res) => {
+        // const savedMovesData = [...savedMovies, { ...res, id: res.movieId }];
+        console.log(savedMovies)
+        // const savedMovesData = [...savedMovies];
+        // setSavedMovies([...savedMovies, { ...res, id: res.movieId }]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  console.log(savedMovies)
 
   // проверка токена
   const tokenCheck = () => {
@@ -132,6 +157,7 @@ function App() {
                 element={MoviesScreen}
                 loggedIn={loggedIn}
                 handleSingOut={handleSingOut}
+                handleSaveMovie={handleSaveMovie}
               />
             }
           />

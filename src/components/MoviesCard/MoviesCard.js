@@ -2,15 +2,21 @@ import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './MoviesCard.css';
 
-function MoviesCard({ movies, onCardDelete }) {
+function MoviesCard({ movies, isSave, handleSaveMovie }) {
   const src = `https://api.nomoreparties.co/${movies.image.url}`;
   const location = useLocation();
 
   const [isLiked, setIsLiked] = useState(false);
 
-  function handleDeleteClick() {
-    onCardDelete( movies.id );
+  const handleClickLike = () => {
+    setIsLiked(!isLiked)
+
+    if(isLiked) {
+
+    }
   }
+
+
 
   return (
     <li className='movie'>
@@ -27,14 +33,15 @@ function MoviesCard({ movies, onCardDelete }) {
         {location.pathname === '/movies' ? (
           <button
             className={`movie__button ${isLiked ? 'movie__button_saved' : ''}`}
-            onClick={() => setIsLiked(!isLiked)}
+            onClick={() => handleSaveMovie(movies)}
             type='button'
           ></button>
         ) : (
           <button
-          onClick={handleDeleteClick}
+          onClick={() => {}}
             className='movie__button movie__button_del'
             type='button'
+
           ></button>
         )}
         <p className='movie__duration'>{movies.duration}</p>
