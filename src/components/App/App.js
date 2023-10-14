@@ -40,7 +40,7 @@ function App() {
         .catch((err) => console.log(err));
     }
   }, [loggedIn]);
-console.log(savedMovies)
+
   useEffect(() => {
     tokenCheck();
   }, []);
@@ -106,17 +106,14 @@ console.log(savedMovies)
     mainApi
       .createMovie(movie)
       .then((res) => {
-        // const savedMovesData = [...savedMovies, { ...res, id: res.movieId }];
-        console.log(savedMovies)
-        // const savedMovesData = [...savedMovies];
-        // setSavedMovies([...savedMovies, { ...res, id: res.movieId }]);
+        const savedMovesData = [...savedMovies, { ...res, id: res.movieId }];
+
+        setSavedMovies(savedMovesData);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
-  console.log(savedMovies)
 
   // проверка токена
   const tokenCheck = () => {

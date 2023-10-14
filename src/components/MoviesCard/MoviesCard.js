@@ -16,6 +16,7 @@ function MoviesCard({ movies, isSave, handleSaveMovie }) {
     }
   }
 
+  console.log(isSave)
 
 
   return (

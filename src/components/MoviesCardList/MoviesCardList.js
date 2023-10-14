@@ -4,9 +4,10 @@ import { useState } from 'react';
 
 function MoviesCardList({searchMovies, cardsCount, handleSaveMovie}) {
 
-  // const isSave = (movie) => {
-  //   return searchMovies.some((mov) => mov.monvieId === movie.id)
-  // }
+  //проверка на сохраненный фильм
+  const isSave = (movie) => {
+    return searchMovies.some((mov) => mov.id === movie.id)
+  }
 
 
   return (
@@ -16,7 +17,7 @@ function MoviesCardList({searchMovies, cardsCount, handleSaveMovie}) {
           movies={card}
           key={card.id}
           handleSaveMovie={handleSaveMovie}
-          // isSave={isSave(card)}
+          isSave={isSave(card)}
         />
       ))}
     </ul>
