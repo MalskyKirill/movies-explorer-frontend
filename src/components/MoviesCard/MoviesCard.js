@@ -6,14 +6,8 @@ function MoviesCard({ movies, isSave, handleSaveMovie }) {
   const src = `https://api.nomoreparties.co/${movies.image.url}`;
   const location = useLocation();
 
-  const [isLiked, setIsLiked] = useState(false);
-
   const handleClickLike = () => {
-    setIsLiked(!isLiked)
 
-    if(isLiked) {
-
-    }
   }
 
   console.log(isSave)
@@ -33,7 +27,7 @@ function MoviesCard({ movies, isSave, handleSaveMovie }) {
         <h2 className='movie__name'>{movies.nameRU}</h2>
         {location.pathname === '/movies' ? (
           <button
-            className={`movie__button ${isLiked ? 'movie__button_saved' : ''}`}
+            className={`movie__button ${isSave ? 'movie__button_saved' : ''}`}
             onClick={() => handleSaveMovie(movies)}
             type='button'
           ></button>

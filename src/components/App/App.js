@@ -106,7 +106,7 @@ function App() {
     mainApi
       .createMovie(movie)
       .then((res) => {
-        const savedMovesData = [...savedMovies, { ...res, id: res.movieId }];
+        const savedMovesData = [...savedMovies, { ...res}];
 
         setSavedMovies(savedMovesData);
       })
@@ -155,6 +155,7 @@ function App() {
                 loggedIn={loggedIn}
                 handleSingOut={handleSingOut}
                 handleSaveMovie={handleSaveMovie}
+                savedMovies={savedMovies}
               />
             }
           />
@@ -165,6 +166,7 @@ function App() {
                 element={SavedMoviesScreen}
                 loggedIn={loggedIn}
                 handleSingOut={handleSingOut}
+                savedMovies={savedMovies}
               />
             }
           />

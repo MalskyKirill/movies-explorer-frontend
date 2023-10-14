@@ -6,7 +6,7 @@ import Preloader from '../Preloader/Preloader';
 import { useCallback, useEffect, useState } from 'react';
 import { moviesApi } from '../../utils/MoviesApi';
 
-function Movies() {
+function SavedMovies({savedMovies}) {
   const [movies, setMovies] = useState([]); // массив карточек фильмов
   const [searchMovies, setSearchMovies] = useState([]); //массив отображаемых карточек
   const [searchText, setSearchText] = useState(''); //название фильма в инпуте поиска
@@ -16,10 +16,6 @@ function Movies() {
   const [isSearchMovies, setIsSearchMovies] = useState(false); //проверка на пустой searchMovies
   const [isShort, setIsShort] = useState(false); // проверка на короткометражку
   const [isApiError, setIsApiError] = useState(false); //проверка на ошибку при запросе
-
-  const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth); // текущий размер экрана
-  const [cardsCount, setCardsCount] = useState(5); //количество карточек изначально на странице
-  const [moreCardsCount, setMoreCardsCount] = useState(0); //добавляемое количество карточек
 
   // изменение инпута
   const inputHandler = (evt) => {
@@ -121,11 +117,11 @@ function Movies() {
       <section className='elements' aria-label='Фильмы'>
         {isLoading && <Preloader />}
         {!isLoading && (
-          <MoviesCardList searchMovies={searchMovies} cardsCount={cardsCount} />
+          <MoviesCardList searchMovies={searchMovies} />
         )}
       </section>
     </main>
   );
 }
 
-export default Movies;
+export default SavedMovies;

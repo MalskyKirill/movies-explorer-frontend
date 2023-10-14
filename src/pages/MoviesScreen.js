@@ -2,11 +2,11 @@ import Header from '../components/Header/Header';
 import Movies from '../components/Movies/Movies';
 import Footer from '../components/Footer/Footer';
 
-function MoviesScreen({ loggedIn, handleSaveMovie }) {
+function MoviesScreen({ loggedIn, handleSaveMovie, savedMovies }) {
   return (
     <>
       <Header loggedIn={loggedIn} />
-      <Movies handleSaveMovie={handleSaveMovie} />
+      <Movies handleSaveMovie={handleSaveMovie} savedMovies={savedMovies} />
       <Footer />
     </>
   );

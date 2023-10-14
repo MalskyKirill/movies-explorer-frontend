@@ -6,7 +6,7 @@ import ButtonMoreMovies from '../ButtonMoreMovies/ButtonMoreMovies';
 import { useCallback, useEffect, useState } from 'react';
 import { moviesApi } from '../../utils/MoviesApi';
 
-function Movies({handleSaveMovie}) {
+function Movies({handleSaveMovie, savedMovies}) {
   const [movies, setMovies] = useState([]); // массив карточек фильмов
   const [searchMovies, setSearchMovies] = useState([]); //массив отображаемых карточек
   const [searchText, setSearchText] = useState(''); //название фильма в инпуте поиска
@@ -155,7 +155,7 @@ function Movies({handleSaveMovie}) {
       <section className='elements' aria-label='Фильмы'>
         {isLoading && <Preloader />}
         {!isLoading && (
-          <MoviesCardList searchMovies={searchMovies} cardsCount={cardsCount} handleSaveMovie={handleSaveMovie}/>
+          <MoviesCardList searchMovies={searchMovies} cardsCount={cardsCount} handleSaveMovie={handleSaveMovie} savedMovies={savedMovies}/>
         )}
       </section>
       {searchMovies.length > cardsCount ? (
