@@ -3,8 +3,8 @@ import { useLocation } from 'react-router-dom';
 import './MoviesCard.css';
 
 function MoviesCard({ movies, isSave, handleSaveMovie }) {
-  const src = `https://api.nomoreparties.co/${movies.image.url}`;
   const location = useLocation();
+  const src = location === 'movies' ? `https://api.nomoreparties.co/${movies.image.url}` : movies.image;
 
   const handleClickLike = () => {
 

@@ -7,7 +7,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { moviesApi } from '../../utils/MoviesApi';
 
 function SavedMovies({savedMovies}) {
-  const [movies, setMovies] = useState([]); // массив карточек фильмов
+  console.log(savedMovies)
+  const [movies, setMovies] = useState(savedMovies); // массив карточек фильмов
   const [searchMovies, setSearchMovies] = useState([]); //массив отображаемых карточек
   const [searchText, setSearchText] = useState(''); //название фильма в инпуте поиска
   const [isSearchInputEmpty, setIsSearchInputEmpty] = useState(false); //проверка на пустой инпут
@@ -117,7 +118,7 @@ function SavedMovies({savedMovies}) {
       <section className='elements' aria-label='Фильмы'>
         {isLoading && <Preloader />}
         {!isLoading && (
-          <MoviesCardList searchMovies={searchMovies} />
+          <MoviesCardList searchMovies={savedMovies} savedMovies={savedMovies}/>
         )}
       </section>
     </main>
