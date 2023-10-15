@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './MoviesCard.css';
 
-function MoviesCard({ movies, isSave, handleSaveMovie }) {
+function MoviesCard({ movies, isSave, handleSaveMovie, handledeDeleteMovies }) {
   const location = useLocation();
   const src = location === 'movies' ? `https://api.nomoreparties.co/${movies.image.url}` : movies.image;
 
@@ -33,7 +33,7 @@ function MoviesCard({ movies, isSave, handleSaveMovie }) {
           ></button>
         ) : (
           <button
-          onClick={() => {}}
+          onClick={() => handledeDeleteMovies(movies)}
             className='movie__button movie__button_del'
             type='button'
 

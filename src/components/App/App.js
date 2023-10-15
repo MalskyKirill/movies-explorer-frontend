@@ -102,6 +102,7 @@ function App() {
     setLoggedIn(false);
   };
 
+  //сохранение фильма
   const handleSaveMovie = (movie) => {
     mainApi
       .createMovie(movie)
@@ -114,6 +115,11 @@ function App() {
         console.log(err);
       });
   };
+
+  //удаление фильма
+  const handledeDeleteMovies = (movie) => {
+    mainApi.deleteMovie(movie._id).then(() => setSavedMovies(savedMovies.filter((mov) => mov._id !== movie._id)))
+  }
 
   // проверка токена
   const tokenCheck = () => {
@@ -153,7 +159,6 @@ function App() {
               <ProtectedRoute
                 element={MoviesScreen}
                 loggedIn={loggedIn}
-                handleSingOut={handleSingOut}
                 handleSaveMovie={handleSaveMovie}
                 savedMovies={savedMovies}
               />
@@ -165,8 +170,8 @@ function App() {
               <ProtectedRoute
                 element={SavedMoviesScreen}
                 loggedIn={loggedIn}
-                handleSingOut={handleSingOut}
                 savedMovies={savedMovies}
+                handledeDeleteMovies={handledeDeleteMovies}
               />
             }
           />

@@ -125,10 +125,13 @@ class MainApi {
 
   //удалить фильм
   deleteMovie(_id) {
+    const token = localStorage.getItem('token');
+
     return fetch(`${this.url}/movies/${_id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
+        authorization: `Bearer ${token}`,
       },
     }).then((res) => {
       return this._getResponseData(res);

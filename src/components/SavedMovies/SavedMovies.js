@@ -6,7 +6,7 @@ import Preloader from '../Preloader/Preloader';
 import { useCallback, useEffect, useState } from 'react';
 import { moviesApi } from '../../utils/MoviesApi';
 
-function SavedMovies({savedMovies}) {
+function SavedMovies({savedMovies, handledeDeleteMovies}) {
   console.log(savedMovies)
   const [movies, setMovies] = useState(savedMovies); // массив карточек фильмов
   const [searchMovies, setSearchMovies] = useState([]); //массив отображаемых карточек
@@ -118,7 +118,7 @@ function SavedMovies({savedMovies}) {
       <section className='elements' aria-label='Фильмы'>
         {isLoading && <Preloader />}
         {!isLoading && (
-          <MoviesCardList searchMovies={savedMovies} savedMovies={savedMovies}/>
+          <MoviesCardList searchMovies={savedMovies} savedMovies={savedMovies} handledeDeleteMovies={handledeDeleteMovies}/>
         )}
       </section>
     </main>
