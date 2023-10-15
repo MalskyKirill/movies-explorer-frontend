@@ -118,7 +118,17 @@ function App() {
 
   //удаление фильма
   const handledeDeleteMovies = (movie) => {
+    console.log(savedMovies)
+    console.log(movie)
     mainApi.deleteMovie(movie._id).then(() => setSavedMovies(savedMovies.filter((mov) => mov._id !== movie._id)))
+  }
+
+  const handleDeleteSavedMovies = (movie) => {
+    // console.log(movie)
+    // console.log(savedMovies)
+    const delMovie = savedMovies.find((mov) => mov.movieId === movie.id)
+    console.log(delMovie)
+    handledeDeleteMovies(delMovie)
   }
 
   // проверка токена
@@ -161,6 +171,7 @@ function App() {
                 loggedIn={loggedIn}
                 handleSaveMovie={handleSaveMovie}
                 savedMovies={savedMovies}
+                handleDeleteSavedMovies={handleDeleteSavedMovies}
               />
             }
           />

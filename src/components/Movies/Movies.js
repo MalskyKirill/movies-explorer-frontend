@@ -6,7 +6,7 @@ import ButtonMoreMovies from '../ButtonMoreMovies/ButtonMoreMovies';
 import { useCallback, useEffect, useState } from 'react';
 import { moviesApi } from '../../utils/MoviesApi';
 
-function Movies({handleSaveMovie, savedMovies}) {
+function Movies({ handleSaveMovie, savedMovies, handleDeleteSavedMovies }) {
   const [movies, setMovies] = useState([]); // массив карточек фильмов
   const [searchMovies, setSearchMovies] = useState([]); //массив отображаемых карточек
   const [searchText, setSearchText] = useState(''); //название фильма в инпуте поиска
@@ -72,22 +72,20 @@ function Movies({handleSaveMovie, savedMovies}) {
 
     isShort ? setSearchMovies(filterShorts) : setSearchMovies(filter);
 
-    filter.length === 0
-    ? setIsSearchMovies(true)
-    : setIsSearchMovies(false);
+    filter.length === 0 ? setIsSearchMovies(true) : setIsSearchMovies(false);
   }, []);
 
   const handleShort = () => {
     if (isShort) {
-      setIsShort(false)
-      filterMovies(searchText, false, movies)
-      localStorage.setItem('shorts', JSON.stringify(false))
+      setIsShort(false);
+      filterMovies(searchText, false, movies);
+      localStorage.setItem('shorts', JSON.stringify(false));
     } else {
-      setIsShort(true)
-      filterMovies(searchText, true, movies)
-      localStorage.setItem('shorts', JSON.stringify(true))
+      setIsShort(true);
+      filterMovies(searchText, true, movies);
+      localStorage.setItem('shorts', JSON.stringify(true));
     }
-  }
+  };
 
   // проверяем количество карточек в зависимости от разммера экрана
   const checkCardsCount = () => {
@@ -109,13 +107,13 @@ function Movies({handleSaveMovie, savedMovies}) {
   //устанавливает значение размера экрана
   const handleResize = () => {
     setWindowInnerWidth(window.innerWidth);
-  }
+  };
 
   // добавляет карточки при нажании на кнопку еще
   const handleLoadMoreCards = () => {
     checkCardsCount();
     setCardsCount(cardsCount + moreCardsCount);
-  }
+  };
 
   useEffect(() => {
     if (
@@ -155,7 +153,13 @@ function Movies({handleSaveMovie, savedMovies}) {
       <section className='elements' aria-label='Фильмы'>
         {isLoading && <Preloader />}
         {!isLoading && (
-          <MoviesCardList searchMovies={searchMovies} cardsCount={cardsCount} handleSaveMovie={handleSaveMovie} savedMovies={savedMovies}/>
+          <MoviesCardList
+            searchMovies={searchMovies}
+            cardsCount={cardsCount}
+            handleSaveMovie={handleSaveMovie}
+            savedMovies={savedMovies}
+            handleDeleteSavedMovies={handleDeleteSavedMovies}
+          />
         )}
       </section>
       {searchMovies.length > cardsCount ? (

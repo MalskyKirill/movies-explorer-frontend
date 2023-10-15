@@ -2,18 +2,19 @@ import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import { useState } from 'react';
 
-function MoviesCardList({searchMovies, cardsCount, handleSaveMovie, savedMovies, handledeDeleteMovies}) {
-
-  console.log(searchMovies)
+function MoviesCardList({
+  searchMovies,
+  cardsCount,
+  handleSaveMovie,
+  savedMovies,
+  handledeDeleteMovies,
+  handleDeleteSavedMovies,
+}) {
+  console.log(searchMovies);
   //проверка на сохраненный фильм
   const isSave = (movie) => {
-    return savedMovies.some(
-      (mov) => mov.movieId === movie.id,
-
-      )
-  }
-
-  console.log(savedMovies)
+    return savedMovies.some((mov) => mov.movieId === movie.id);
+  };
 
   return (
     <ul className='movies'>
@@ -24,6 +25,7 @@ function MoviesCardList({searchMovies, cardsCount, handleSaveMovie, savedMovies,
           handleSaveMovie={handleSaveMovie}
           isSave={isSave(card)}
           handledeDeleteMovies={handledeDeleteMovies}
+          handleDeleteSavedMovies={handleDeleteSavedMovies}
         />
       ))}
     </ul>

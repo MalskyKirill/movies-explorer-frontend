@@ -7,7 +7,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { moviesApi } from '../../utils/MoviesApi';
 
 function SavedMovies({savedMovies, handledeDeleteMovies}) {
-  console.log(savedMovies)
+
   const [movies, setMovies] = useState(savedMovies); // массив карточек фильмов
   const [searchMovies, setSearchMovies] = useState([]); //массив отображаемых карточек
   const [searchText, setSearchText] = useState(''); //название фильма в инпуте поиска

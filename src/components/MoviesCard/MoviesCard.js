@@ -2,15 +2,20 @@ import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './MoviesCard.css';
 
-function MoviesCard({ movies, isSave, handleSaveMovie, handledeDeleteMovies }) {
+function MoviesCard({ movies, isSave, handleSaveMovie, handledeDeleteMovies, handleDeleteSavedMovies }) {
   const location = useLocation();
-  const src = location === 'movies' ? `https://api.nomoreparties.co/${movies.image.url}` : movies.image;
+
+  const src = location.pathname === '/movies' ? `https://api.nomoreparties.co/${movies.image.url}` : movies.image;
 
   const handleClickLike = () => {
-
+    if(!isSave) {
+      handleSaveMovie(movies)
+    } else {
+      handleDeleteSavedMovies(movies)
+    }
   }
 
-  console.log(isSave)
+
 
 
   return (
@@ -28,7 +33,7 @@ function MoviesCard({ movies, isSave, handleSaveMovie, handledeDeleteMovies }) {
         {location.pathname === '/movies' ? (
           <button
             className={`movie__button ${isSave ? 'movie__button_saved' : ''}`}
-            onClick={() => handleSaveMovie(movies)}
+            onClick={handleClickLike}
             type='button'
           ></button>
         ) : (
