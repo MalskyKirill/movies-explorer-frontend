@@ -14,7 +14,7 @@ import {
   useNavigate,
 } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { moviesApi } from '../../utils/MoviesApi';
+
 import { mainApi } from '../../utils/MainApi';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
@@ -35,7 +35,9 @@ function App() {
       Promise.all([mainApi.getCurrentUser(), mainApi.getSavedMovies()])
         .then(([resUserData, {data}]) => {
           setCurrentUser(resUserData);
-          setSavedMovies(data)
+
+          const savedMovies = data.filter((i) => i.owner === resUserData._id);
+          setSavedMovies(savedMovies)
         })
         .catch((err) => console.log(err));
     }
@@ -123,9 +125,8 @@ function App() {
     mainApi.deleteMovie(movie._id).then(() => setSavedMovies(savedMovies.filter((mov) => mov._id !== movie._id)))
   }
 
+  //удаление лайкнутого фильма
   const handleDeleteSavedMovies = (movie) => {
-    // console.log(movie)
-    // console.log(savedMovies)
     const delMovie = savedMovies.find((mov) => mov.movieId === movie.id)
     console.log(delMovie)
     handledeDeleteMovies(delMovie)

@@ -1,6 +1,5 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import { useState } from 'react';
 
 function MoviesCardList({
   searchMovies,
@@ -10,7 +9,7 @@ function MoviesCardList({
   handledeDeleteMovies,
   handleDeleteSavedMovies,
 }) {
-  console.log(searchMovies);
+
   //проверка на сохраненный фильм
   const isSave = (movie) => {
     return savedMovies.some((mov) => mov.movieId === movie.id);
