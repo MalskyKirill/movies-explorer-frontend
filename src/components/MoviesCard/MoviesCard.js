@@ -15,7 +15,12 @@ function MoviesCard({ movies, isSave, handleSaveMovie, handledeDeleteMovies, han
     }
   }
 
+  const toHoursAndMinutes = (totalMinutes) => {
+    const minutes = totalMinutes % 60;
+    const hours = Math.floor(totalMinutes / 60);
 
+    return `${hours}ч ${minutes > 0 ? ` ${minutes}м` : ''}`;
+  }
 
 
   return (
@@ -44,7 +49,7 @@ function MoviesCard({ movies, isSave, handleSaveMovie, handledeDeleteMovies, han
 
           ></button>
         )}
-        <p className='movie__duration'>{movies.duration}</p>
+        <p className='movie__duration'>{toHoursAndMinutes(movies.duration)}</p>
       </div>
     </li>
   );
