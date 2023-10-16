@@ -1,5 +1,3 @@
-const URL = 'https://api.movie-malsky.nomoredo.nomoredomainsrocks.ru';
-
 class MainApi {
   constructor(url) {
     this.url = url;
