@@ -25,6 +25,7 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]); //стейт сохранненых фильмов
 
   const [isApiError, setIsApiError] = useState(false);
+  const [isApiOk, setIsApiOk] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -52,7 +53,7 @@ function App() {
     mainApi
       .register(email, password, name)
       .then((res) => {
-        console.log(res)
+        console.log(res);
         mainApi
           .authorize(res.email, password)
           .then((data) => {
@@ -100,11 +101,19 @@ function App() {
       .changeProfileData(name, email)
       .then((newCurrentUserData) => {
         setCurrentUser(newCurrentUserData);
+        setIsApiOk(true);
         setIsApiError(false);
       })
       .catch((err) => {
         console.log(err);
         setIsApiError(true);
+        setIsApiOk(false);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setIsApiError(false);
+          setIsApiOk(false);
+        }, 5000);
       });
   };
 
@@ -214,7 +223,8 @@ function App() {
                 loggedIn={loggedIn}
                 handleSingOut={handleSingOut}
                 handleUpdateProfile={handleUpdateProfile}
-                isApiRegisterError={isApiError}
+                isApiError={isApiError}
+                isApiOk={isApiOk}
               />
             }
           />

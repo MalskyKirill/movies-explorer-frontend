@@ -4,7 +4,7 @@ import './Profile.css';
 
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 
-function Profile({ handleSingOut, handleUpdateProfile, isApiError }) {
+function Profile({ handleSingOut, handleUpdateProfile, isApiError, isApiOk }) {
   const currentUser = useContext(CurrentUserContext);
 
   const [name, setName] = useState(''); // имя пользователя
@@ -13,12 +13,11 @@ function Profile({ handleSingOut, handleUpdateProfile, isApiError }) {
   const [nameError, setNameError] = useState(false); // показать ошибку имени
   const [emailError, setEmailError] = useState(false); // показать ошибку емаила
 
-  console.log(currentUser);
-
   const [inputsValid, setInputsValid] = useState(false); // проверка валидности всех инпутов
 
   const [isRedact, setIsRedact] = useState(false);
 
+  console.log(isApiOk, isApiError)
   const handleRedact = () => {
     setIsRedact(true);
   };
@@ -45,33 +44,38 @@ function Profile({ handleSingOut, handleUpdateProfile, isApiError }) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    handleUpdateProfile(name, email)
+    handleUpdateProfile(name, email);
 
     setIsRedact(false);
   };
 
   useEffect(() => {
-    if (nameError || emailError ) {
+    if (nameError || emailError) {
       setInputsValid(false);
     } else {
       setInputsValid(true);
     }
 
-    if(!name || !email) {
-      setInputsValid(false)
-    };
+    if (!name || !email) {
+      setInputsValid(false);
+    }
   }, [nameError, emailError, name, email]);
 
   useEffect(() => {
-    setName(currentUser.name)
-    setEmail(currentUser.email)
-  }, [currentUser])
+    setName(currentUser.name);
+    setEmail(currentUser.email);
+  }, [currentUser]);
 
   return (
     <>
       <main className='content content_main'>
         <section className='profile'>
           <h1 className='profile__name'>Привет {currentUser.name}!</h1>
+          {isApiOk && (
+            <span className='profile__field-error profile__field-error_save profile__field-error_visible'>
+              обновление профиля прошло успешно
+            </span>
+          )}
           <form
             className='profile__form'
             id='profile-field'
@@ -95,9 +99,11 @@ function Profile({ handleSingOut, handleUpdateProfile, isApiError }) {
                   disabled={!isRedact}
                 />
               </div>
-              {nameError && <span className='profile__field-error profile__field-error-name profile__field-error_visible'>
-                ошибка имени
-              </span>}
+              {nameError && (
+                <span className='profile__field-error profile__field-error-name profile__field-error_visible'>
+                  ошибка имени
+                </span>
+              )}
             </label>
             <label className='profile__field-wrap'>
               <div className='profile__field-content'>
@@ -116,9 +122,11 @@ function Profile({ handleSingOut, handleUpdateProfile, isApiError }) {
                   disabled={!isRedact}
                 />
               </div>
-              {emailError && <span className='profile__field-error profile__field-error-email profile__field-error_visible'>
-                ошибка email
-              </span>}
+              {emailError && (
+                <span className='profile__field-error profile__field-error-email profile__field-error_visible'>
+                  ошибка email
+                </span>
+              )}
             </label>
             {!isRedact ? (
               <button
@@ -131,9 +139,11 @@ function Profile({ handleSingOut, handleUpdateProfile, isApiError }) {
               </button>
             ) : (
               <div className='profile__save-wrap'>
-                {isApiError && <span className='profile__field-error profile__field-error_save profile__field-error_visible'>
-                  При обновлении профиля произошла ошибка.
-                </span>}
+                {isApiError && (
+                  <span className='profile__field-error profile__field-error_save profile__field-error_visible'>
+                    При обновлении профиля произошла ошибка.
+                  </span>
+                )}
                 <button
                   className='profile__save'
                   type='submit'
