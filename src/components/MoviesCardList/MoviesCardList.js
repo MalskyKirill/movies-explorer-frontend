@@ -1,5 +1,6 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
+import { useLocation } from 'react-router-dom';
 
 function MoviesCardList({
   searchMovies,
@@ -9,6 +10,8 @@ function MoviesCardList({
   handledeDeleteMovies,
   handleDeleteSavedMovies,
 }) {
+
+  const location = useLocation();
 
   //проверка на сохраненный фильм
   const isSave = (movie) => {
@@ -21,7 +24,7 @@ function MoviesCardList({
       {searchMovies.slice(0, cardsCount).map((card) => (
         <MoviesCard
           movies={card}
-          key={card.id}
+          key={location.pathname === '/movies' ? card.id : card.movieId}
           handleSaveMovie={handleSaveMovie}
           isSave={isSave(card)}
           handledeDeleteMovies={handledeDeleteMovies}
