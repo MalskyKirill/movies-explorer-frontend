@@ -4,9 +4,7 @@ import SearchForm from '../SearchForm/SearchForm';
 
 import { useCallback, useEffect, useState } from 'react';
 
-
 function SavedMovies({ savedMovies, handledeDeleteMovies }) {
-
   const [searchMovies, setSearchMovies] = useState(savedMovies); //массив отображаемых карточек
   const [searchText, setSearchText] = useState(''); //название фильма в инпуте поиска
   const [isSearchInputEmpty, setIsSearchInputEmpty] = useState(false); //проверка на пустой инпут
@@ -14,9 +12,6 @@ function SavedMovies({ savedMovies, handledeDeleteMovies }) {
   const [isSearchMovies, setIsSearchMovies] = useState(false); //проверка на пустой searchMovies
   const [isShort, setIsShort] = useState(false); // проверка на короткометражку
 
-
-  console.log(searchMovies)
-  console.log(searchText)
   // изменение инпута
   const inputHandler = (evt) => {
     setSearchText(evt.target.value);
@@ -43,10 +38,10 @@ function SavedMovies({ savedMovies, handledeDeleteMovies }) {
     const filter = movies.filter((movie) =>
       movie.nameRU.toLowerCase().includes(searchText.toLowerCase())
     );
-    const filterShorts = filter.filter((movie) => movie.duration <= 40);
-    console.log(filter)
-    isShort ? setSearchMovies(filterShorts) : setSearchMovies(filter);
 
+    const filterShorts = filter.filter((movie) => movie.duration <= 40);
+
+    isShort ? setSearchMovies(filterShorts) : setSearchMovies(filter);
     filter.length === 0 ? setIsSearchMovies(true) : setIsSearchMovies(false);
   }, []);
 
@@ -54,25 +49,17 @@ function SavedMovies({ savedMovies, handledeDeleteMovies }) {
     if (isShort) {
       setIsShort(false);
       filterMovies(searchText, false, savedMovies);
-      localStorage.setItem('shorts', JSON.stringify(false));
     } else {
       setIsShort(true);
       filterMovies(searchText, true, savedMovies);
-      localStorage.setItem('shorts', JSON.stringify(true));
     }
   };
 
   useEffect(() => {
+    setIsShort(isShort);
 
-
-
-      setIsShort(isShort);
-
-      filterMovies(searchText, isShort, savedMovies);
-
+    filterMovies(searchText, isShort, savedMovies);
   }, [filterMovies, isShort, savedMovies, searchText]);
-
-
 
   return (
     <main className='content content_main'>
@@ -83,13 +70,14 @@ function SavedMovies({ savedMovies, handledeDeleteMovies }) {
         handleSubmitMovies={handleSubmitMovies}
         isSearchMovies={isSearchMovies}
         handleShort={handleShort}
+        isShort={isShort}
       />
       <section className='elements' aria-label='Фильмы'>
-          <MoviesCardList
-            searchMovies={searchMovies}
-            savedMovies={savedMovies}
-            handledeDeleteMovies={handledeDeleteMovies}
-          />
+        <MoviesCardList
+          searchMovies={searchMovies}
+          savedMovies={savedMovies}
+          handledeDeleteMovies={handledeDeleteMovies}
+        />
       </section>
     </main>
   );
