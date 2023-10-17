@@ -71,7 +71,7 @@ function Profile({ handleSingOut, handleUpdateProfile, isApiError }) {
     <>
       <main className='content content_main'>
         <section className='profile'>
-          <h1 className='profile__name'>Привет Кирилл!</h1>
+          <h1 className='profile__name'>Привет {currentUser.name}!</h1>
           <form
             className='profile__form'
             id='profile-field'
