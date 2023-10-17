@@ -149,6 +149,7 @@ function Movies({ handleSaveMovie, savedMovies, handleDeleteSavedMovies }) {
         isSearchMovies={isSearchMovies}
         isApiError={isApiError}
         handleShort={handleShort}
+        isShort={isShort}
       />
       <section className='elements' aria-label='Фильмы'>
         {isLoading && <Preloader />}

@@ -14,6 +14,7 @@ function MoviesCardList({
   const isSave = (movie) => {
     return savedMovies.some((mov) => mov.movieId === movie.id);
   };
+  console.log(searchMovies)
 
   return (
     <ul className='movies'>

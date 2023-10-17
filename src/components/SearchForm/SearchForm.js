@@ -9,6 +9,7 @@ function SearchForm({
   isSearchMovies,
   isApiError,
   handleShort,
+  isShort
 }) {
   return (
     <section className='search' aria-label='Поиск'>
@@ -44,7 +45,7 @@ function SearchForm({
             type='submit'
           ></button>
         </form>
-        <FilterCheckbox handleShort={handleShort} searchText={searchText}/>
+        <FilterCheckbox handleShort={handleShort} searchText={searchText} isShort={isShort}/>
       </div>
     </section>
   );

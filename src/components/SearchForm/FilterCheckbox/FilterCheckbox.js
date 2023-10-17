@@ -1,9 +1,9 @@
 import { useLocation } from 'react-router-dom';
 import './FilterCheckbox.css';
 
-function FilterCheckbox({ handleShort, searchText }) {
+function FilterCheckbox({ handleShort, searchText, isShort }) {
   const location = useLocation();
-
+  console.log(isShort)
   return (
     <label className='search__switch'>
       {location.pathname === '/movies' ? (
@@ -12,12 +12,14 @@ function FilterCheckbox({ handleShort, searchText }) {
           type='checkbox'
           onChange={handleShort}
           disabled={searchText.length === 0}
+          checked={isShort}
         />
       ) : (
         <input
           className='search__checkbox-input'
           type='checkbox'
           onChange={handleShort}
+          //checked={isShort}
         />
       )}
       <div className='search__checkbox-custom'></div>
