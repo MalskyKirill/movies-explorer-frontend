@@ -4,7 +4,7 @@ import './Profile.css';
 
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 
-function Profile({ handleSingOut, handleUpdateProfile, isApiError, isApiOk }) {
+function Profile({ handleSingOut, handleUpdateProfile, isApiError, isApiOk, setIsRedact, isRedact }) {
   const currentUser = useContext(CurrentUserContext);
 
   const [name, setName] = useState(''); // имя пользователя
@@ -15,9 +15,6 @@ function Profile({ handleSingOut, handleUpdateProfile, isApiError, isApiOk }) {
 
   const [inputsValid, setInputsValid] = useState(false); // проверка валидности всех инпутов
 
-  const [isRedact, setIsRedact] = useState(false);
-
-  console.log(isApiOk, isApiError)
   const handleRedact = () => {
     setIsRedact(true);
   };
@@ -45,8 +42,6 @@ function Profile({ handleSingOut, handleUpdateProfile, isApiError, isApiOk }) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     handleUpdateProfile(name, email);
-
-    setIsRedact(false);
   };
 
   useEffect(() => {
@@ -148,7 +143,7 @@ function Profile({ handleSingOut, handleUpdateProfile, isApiError, isApiOk }) {
                   className='profile__save'
                   type='submit'
                   form='profile-field'
-                  disabled={!inputsValid}
+                  disabled={!inputsValid || isApiError}
                 >
                   Сохранить
                 </button>

@@ -26,6 +26,7 @@ function App() {
 
   const [isApiError, setIsApiError] = useState(false);
   const [isApiOk, setIsApiOk] = useState(false);
+  const [isRedact, setIsRedact] = useState(false); //редактирование профайла
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -103,16 +104,19 @@ function App() {
         setCurrentUser(newCurrentUserData);
         setIsApiOk(true);
         setIsApiError(false);
+        setIsRedact(false);
       })
       .catch((err) => {
         console.log(err);
         setIsApiError(true);
         setIsApiOk(false);
+        setIsRedact(true);
       })
       .finally(() => {
         setTimeout(() => {
           setIsApiError(false);
           setIsApiOk(false);
+          setIsRedact(false);
         }, 5000);
       });
   };
@@ -225,6 +229,8 @@ function App() {
                 handleUpdateProfile={handleUpdateProfile}
                 isApiError={isApiError}
                 isApiOk={isApiOk}
+                isRedact={isRedact}
+                setIsRedact={setIsRedact}
               />
             }
           />

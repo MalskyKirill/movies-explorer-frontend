@@ -1,7 +1,7 @@
 import Header from '../components/Header/Header';
 import Profile from '../components/Profile/Profile';
 
-function ProfileScreen({ loggedIn, handleSingOut, handleUpdateProfile, isApiError, isApiOk }) {
+function ProfileScreen({ loggedIn, handleSingOut, handleUpdateProfile, isApiError, isApiOk, isRedact, setIsRedact }) {
 
   return (
     <>
@@ -11,6 +11,8 @@ function ProfileScreen({ loggedIn, handleSingOut, handleUpdateProfile, isApiErro
         isApiError={isApiError}
         isApiOk={isApiOk}
         handleUpdateProfile={handleUpdateProfile}
+        isRedact={isRedact}
+        setIsRedact={setIsRedact}
       />
     </>
   );
