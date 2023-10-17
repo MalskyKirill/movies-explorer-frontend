@@ -65,6 +65,8 @@ function Movies({ handleSaveMovie, savedMovies, handleDeleteSavedMovies }) {
     localStorage.setItem('searchText', JSON.stringify(searchText));
     localStorage.setItem('shorts', JSON.stringify(isShort));
 
+    setCardsCount(cardsCount)
+
     const filter = movies.filter((movie) =>
       movie.nameRU.toLowerCase().includes(searchText.toLowerCase())
     );
