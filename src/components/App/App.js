@@ -115,9 +115,8 @@ function App() {
       .finally(() => {
         setTimeout(() => {
           setIsApiError(false);
-          setIsApiOk(false);
           setIsRedact(false);
-        }, 5000);
+        }, 2000);
       });
   };
 
@@ -231,6 +230,7 @@ function App() {
                 isApiOk={isApiOk}
                 isRedact={isRedact}
                 setIsRedact={setIsRedact}
+                setIsApiOk={setIsApiOk}
               />
             }
           />

@@ -4,7 +4,7 @@ import './Profile.css';
 
 import { CurrentUserContext } from '../../context/CurrentUserContext';
 
-function Profile({ handleSingOut, handleUpdateProfile, isApiError, isApiOk, setIsRedact, isRedact }) {
+function Profile({ handleSingOut, handleUpdateProfile, isApiError, isApiOk, setIsRedact, isRedact, setIsApiOk }) {
   const currentUser = useContext(CurrentUserContext);
 
   const [name, setName] = useState(''); // имя пользователя
@@ -14,9 +14,12 @@ function Profile({ handleSingOut, handleUpdateProfile, isApiError, isApiOk, setI
   const [emailError, setEmailError] = useState(false); // показать ошибку емаила
 
   const [inputsValid, setInputsValid] = useState(false); // проверка валидности всех инпутов
+  const [isDisabled, setIsDisabled] = useState(false); // задисейблить
+
 
   const handleRedact = () => {
     setIsRedact(true);
+    setIsApiOk(false);
   };
 
   const nameHandler = (evt) => {
@@ -54,11 +57,21 @@ function Profile({ handleSingOut, handleUpdateProfile, isApiError, isApiOk, setI
     if (!name || !email) {
       setInputsValid(false);
     }
-  }, [nameError, emailError, name, email]);
+
+    if (name !== currentUser.name || email !== currentUser.email) {
+      setIsDisabled(false)
+    } else {
+      setIsDisabled(true)
+    }
+
+
+  }, [nameError, emailError, name, email, isRedact]);
 
   useEffect(() => {
     setName(currentUser.name);
     setEmail(currentUser.email);
+
+
   }, [currentUser]);
 
   return (
@@ -143,7 +156,7 @@ function Profile({ handleSingOut, handleUpdateProfile, isApiError, isApiOk, setI
                   className='profile__save'
                   type='submit'
                   form='profile-field'
-                  disabled={!inputsValid || isApiError}
+                  disabled={!inputsValid || isApiError || isDisabled}
                 >
                   Сохранить
                 </button>
