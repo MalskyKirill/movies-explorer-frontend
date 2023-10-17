@@ -33,11 +33,11 @@ function App() {
   useEffect(() => {
     if (localStorage.token) {
       Promise.all([mainApi.getCurrentUser(), mainApi.getSavedMovies()])
-        .then(([resUserData, {data}]) => {
+        .then(([resUserData, { data }]) => {
           setCurrentUser(resUserData);
 
-          const savedMovies = data.filter((i) => i.owner === resUserData._id);
-          setSavedMovies(savedMovies)
+          const savedMovies = data.filter((el) => el.owner === resUserData._id);
+          setSavedMovies(savedMovies);
         })
         .catch((err) => console.log(err));
     }
@@ -52,9 +52,22 @@ function App() {
     mainApi
       .register(email, password, name)
       .then((res) => {
-        navigate('/movies', { replace: true });
-        setLoggedIn(true);
-        setIsApiError(false);
+        console.log(res)
+        mainApi
+          .authorize(res.email, password)
+          .then((data) => {
+            if (data.token) {
+              localStorage.setItem('token', data.token);
+
+              navigate('/movies', { replace: true });
+              setLoggedIn(true);
+              setIsApiError(false);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            setIsApiError(true);
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -81,6 +94,7 @@ function App() {
       });
   };
 
+  //обновление профайла
   const handleUpdateProfile = (name, email) => {
     mainApi
       .changeProfileData(name, email)
@@ -109,7 +123,7 @@ function App() {
     mainApi
       .createMovie(movie)
       .then((res) => {
-        const savedMovesData = [...savedMovies, { ...res}];
+        const savedMovesData = [...savedMovies, { ...res }];
 
         setSavedMovies(savedMovesData);
       })
@@ -120,17 +134,22 @@ function App() {
 
   //удаление фильма
   const handledeDeleteMovies = (movie) => {
-    console.log(savedMovies)
-    console.log(movie)
-    mainApi.deleteMovie(movie._id).then(() => setSavedMovies(savedMovies.filter((mov) => mov._id !== movie._id)))
-  }
+    mainApi
+      .deleteMovie(movie._id)
+      .then(() =>
+        setSavedMovies(savedMovies.filter((mov) => mov._id !== movie._id))
+      )
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   //удаление лайкнутого фильма
   const handleDeleteSavedMovies = (movie) => {
-    const delMovie = savedMovies.find((mov) => mov.movieId === movie.id)
-    console.log(delMovie)
-    handledeDeleteMovies(delMovie)
-  }
+    const delMovie = savedMovies.find((mov) => mov.movieId === movie.id);
+
+    handledeDeleteMovies(delMovie);
+  };
 
   // проверка токена
   const tokenCheck = () => {
