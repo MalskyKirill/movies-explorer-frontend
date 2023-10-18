@@ -1,11 +1,11 @@
 import Header from '../components/Header/Header';
 import Register from '../components/Register/Register';
 
-function RegistrationScreen() {
+function RegistrationScreen({loggedIn, handleRegistration, isApiRegisterError}) {
   return (
     <>
-      <Header />
-      <Register />
+      <Header loggedIn={loggedIn}/>
+      <Register handleRegistration={handleRegistration} isApiRegisterError={isApiRegisterError}/>
     </>
   );
 }

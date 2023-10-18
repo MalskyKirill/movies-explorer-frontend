@@ -24,3 +24,7 @@ e476e37 Создал старницу ProfileScreen на реакт компон
 5a6f05d Создал старницу MoviesScreen на реакт компонентах
 dba07b0 Создал старницу landing на реакт компонентах
 a5b0137 Создал файловую структуру компонентов
+
+https://github.com/MalskyKirill/movies-explorer-frontend/pull/2 - ссылка на пр
+
+https://movie-malsky.nomoredo.nomoredomainsrocks.ru/ - ссылка на проект

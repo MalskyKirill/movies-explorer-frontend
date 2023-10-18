@@ -123,3 +123,13 @@
 .search__button:hover {
   opacity: 0.7;
 }
+
+.search__error {
+  color: #EE3465;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  top: 83px;
+  position: absolute;
+}

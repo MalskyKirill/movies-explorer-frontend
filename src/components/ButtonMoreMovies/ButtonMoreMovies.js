@@ -1,9 +1,9 @@
 import './ButtonMoreMovies.css'
 
-function ButtonMoreMovies() {
+function ButtonMoreMovies({handleLoadMoreCards}) {
   return (
     <section className='more' aria-label='Еще фильмов'>
-      <button className='more__button' type='button'>
+      <button onClick={handleLoadMoreCards} className='more__button' type='button'>
         Ещё
       </button>
     </section>

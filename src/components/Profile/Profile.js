@@ -1,44 +1,95 @@
 import { Link } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import './Profile.css';
 
-function Profile() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 
-  const [isValid, setIsValid] = useState(false)
+function Profile({ handleSingOut, handleUpdateProfile, isApiError, isApiOk, setIsRedact, isRedact, setIsApiOk }) {
+  const currentUser = useContext(CurrentUserContext);
 
-  const [isRedact, setIsRedact] = useState(false);
+  const [name, setName] = useState(''); // имя пользователя
+  const [email, setEmail] = useState(''); // email пользователя
+
+  const [nameError, setNameError] = useState(false); // показать ошибку имени
+  const [emailError, setEmailError] = useState(false); // показать ошибку емаила
+
+  const [inputsValid, setInputsValid] = useState(false); // проверка валидности всех инпутов
+  const [isDisabled, setIsDisabled] = useState(false); // задисейблить
+
 
   const handleRedact = () => {
-    setIsRedact(true)
-  }
+    setIsRedact(true);
+    setIsApiOk(false);
+  };
 
-  const handleNameChange = (evt) => {
-    setName(evt.target.value)
-  }
+  const nameHandler = (evt) => {
+    setName(evt.target.value);
 
-  const handleEmailChange = (evt) => {
-    setEmail(evt.target.value)
-  }
+    if (!/^[A-Za-zА-Яа-яЁё /s -]{2,}/.test(evt.target.value)) {
+      setNameError(true);
+    } else {
+      setNameError(false);
+    }
+  };
+
+  const emailHandler = (evt) => {
+    setEmail(evt.target.value);
+
+    if (!/^[\w]+@[a-zA-Z]+\.[a-zA-Z]{2,4}$/.test(evt.target.value)) {
+      setEmailError(true);
+    } else {
+      setEmailError(false);
+    }
+  };
 
   const handleSubmit = (evt) => {
-    evt.preventDefault()
-    setIsRedact(false)
-  }
+    evt.preventDefault();
+    handleUpdateProfile(name, email);
+  };
 
   useEffect(() => {
-    if(name.length >= 2 && email.length >= 2) {
-      setIsValid(true)
+    if (nameError || emailError) {
+      setInputsValid(false);
+    } else {
+      setInputsValid(true);
     }
-  }, [name, email])
+
+    if (!name || !email) {
+      setInputsValid(false);
+    }
+
+    if (name !== currentUser.name || email !== currentUser.email) {
+      setIsDisabled(false)
+    } else {
+      setIsDisabled(true)
+    }
+
+
+  }, [nameError, emailError, name, email, isRedact]);
+
+  useEffect(() => {
+    setName(currentUser.name);
+    setEmail(currentUser.email);
+
+
+  }, [currentUser]);
 
   return (
     <>
       <main className='content content_main'>
         <section className='profile'>
-          <h1 className='profile__name'>Привет Кирилл!</h1>
-          <form className='profile__form' id='profile-field' name='form' onSubmit={handleSubmit}>
+          <h1 className='profile__name'>Привет {currentUser.name}!</h1>
+          {isApiOk && (
+            <span className='profile__field-error profile__field-error_save profile__field-error_visible'>
+              обновление профиля прошло успешно
+            </span>
+          )}
+          <form
+            className='profile__form'
+            id='profile-field'
+            name='form'
+            onSubmit={handleSubmit}
+          >
             <label className='profile__field-wrap'>
               <div className='profile__field-content'>
                 <span className='profile__label'>Имя</span>
@@ -52,13 +103,15 @@ function Profile() {
                   maxLength='40'
                   required
                   value={name || ''}
-                  onChange={handleNameChange}
+                  onChange={nameHandler}
                   disabled={!isRedact}
                 />
               </div>
-              <span className='profile__field-error profile__field-error-name profile__field-error_visible'>
-                ошибка имени
-              </span>
+              {nameError && (
+                <span className='profile__field-error profile__field-error-name profile__field-error_visible'>
+                  ошибка имени
+                </span>
+              )}
             </label>
             <label className='profile__field-wrap'>
               <div className='profile__field-content'>
@@ -73,13 +126,15 @@ function Profile() {
                   maxLength='200'
                   required
                   value={email || ''}
-                  onChange={handleEmailChange}
+                  onChange={emailHandler}
                   disabled={!isRedact}
                 />
               </div>
-              <span className='profile__field-error profile__field-error-email profile__field-error_visible'>
-                ошибка email
-              </span>
+              {emailError && (
+                <span className='profile__field-error profile__field-error-email profile__field-error_visible'>
+                  ошибка email
+                </span>
+              )}
             </label>
             {!isRedact ? (
               <button
@@ -92,15 +147,16 @@ function Profile() {
               </button>
             ) : (
               <div className='profile__save-wrap'>
-                <span className='profile__field-error profile__field-error_save profile__field-error_visible'>
-                  При обновлении профиля произошла ошибка.
-                </span>
+                {isApiError && (
+                  <span className='profile__field-error profile__field-error_save profile__field-error_visible'>
+                    При обновлении профиля произошла ошибка.
+                  </span>
+                )}
                 <button
                   className='profile__save'
                   type='submit'
                   form='profile-field'
-                  disabled={!isValid}
-
+                  disabled={!inputsValid || isApiError || isDisabled}
                 >
                   Сохранить
                 </button>
@@ -108,7 +164,12 @@ function Profile() {
             )}
           </form>
           {!isRedact ? (
-            <Link to={'/'} className='profile__exit' type='button'>
+            <Link
+              to={'/'}
+              className='profile__exit'
+              type='button'
+              onClick={handleSingOut}
+            >
               Выйти из аккаунта
             </Link>
           ) : (

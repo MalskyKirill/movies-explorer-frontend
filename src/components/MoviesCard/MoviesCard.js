@@ -2,15 +2,26 @@ import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './MoviesCard.css';
 
-function MoviesCard({ movies, onCardDelete }) {
-  const src = `https://api.nomoreparties.co/${movies.image.url}`;
+function MoviesCard({ movies, isSave, handleSaveMovie, handledeDeleteMovies, handleDeleteSavedMovies }) {
   const location = useLocation();
 
-  const [isLiked, setIsLiked] = useState(false);
+  const src = location.pathname === '/movies' ? `https://api.nomoreparties.co/${movies.image.url}` : movies.image;
 
-  function handleDeleteClick() {
-    onCardDelete( movies.id );
+  const handleClickLike = () => {
+    if(!isSave) {
+      handleSaveMovie(movies)
+    } else {
+      handleDeleteSavedMovies(movies)
+    }
   }
+
+  const toHoursAndMinutes = (totalMinutes) => {
+    const minutes = totalMinutes % 60;
+    const hours = Math.floor(totalMinutes / 60);
+
+    return `${hours}ч ${minutes > 0 ? ` ${minutes}м` : ''}`;
+  }
+
 
   return (
     <li className='movie'>
@@ -26,18 +37,19 @@ function MoviesCard({ movies, onCardDelete }) {
         <h2 className='movie__name'>{movies.nameRU}</h2>
         {location.pathname === '/movies' ? (
           <button
-            className={`movie__button ${isLiked ? 'movie__button_saved' : ''}`}
-            onClick={() => setIsLiked(!isLiked)}
+            className={`movie__button ${isSave ? 'movie__button_saved' : ''}`}
+            onClick={handleClickLike}
             type='button'
           ></button>
         ) : (
           <button
-          onClick={handleDeleteClick}
+          onClick={() => handledeDeleteMovies(movies)}
             className='movie__button movie__button_del'
             type='button'
+
           ></button>
         )}
-        <p className='movie__duration'>{movies.duration}</p>
+        <p className='movie__duration'>{toHoursAndMinutes(movies.duration)}</p>
       </div>
     </li>
   );

@@ -1,13 +1,13 @@
 import Header from '../components/Header/Header';
 import Login from '../components/Login/Login';
 
-function LoginScreen() {
-  return(
+function LoginScreen({ loggedIn, isApiError, handleLogin }) {
+  return (
     <>
-    <Header />
-    <Login />
+      <Header loggedIn={loggedIn} />
+      <Login isApiError={isApiError} handleLogin={handleLogin} />
     </>
-  )
+  );
 }
 
 export default LoginScreen;

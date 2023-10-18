@@ -1,23 +1,34 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
-import { movies } from '../../vendor/fish-data';
+function MoviesCardList({
+  searchMovies,
+  cardsCount,
+  handleSaveMovie,
+  savedMovies,
+  handledeDeleteMovies,
+  handleDeleteSavedMovies,
+}) {
 
-function MoviesCardList() {
-  const [cards, setCards] = useState(movies);
+  const location = useLocation();
 
-  const onCardDelete = (id) => {
-    setCards((cards) => cards.filter((card) => card.id !== id));
+  //проверка на сохраненный фильм
+  const isSave = (movie) => {
+    return savedMovies.some((mov) => mov.movieId === movie.id);
   };
+  console.log(searchMovies)
 
   return (
     <ul className='movies'>
-      {cards.map((card) => (
+      {searchMovies.slice(0, cardsCount).map((card) => (
         <MoviesCard
           movies={card}
-          key={card.id}
-          onCardDelete={onCardDelete}
+          key={location.pathname === '/movies' ? card.id : card.movieId}
+          handleSaveMovie={handleSaveMovie}
+          isSave={isSave(card)}
+          handledeDeleteMovies={handledeDeleteMovies}
+          handleDeleteSavedMovies={handleDeleteSavedMovies}
         />
       ))}
     </ul>
